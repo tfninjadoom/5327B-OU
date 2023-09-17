@@ -40,29 +40,17 @@
 /**
  * Includes for external APIs here
  */
-#include "okapi/api.hpp"
+// #include "okapi/api.hpp"
 // #include "pros/api_legacy.h"
 
 /**
  * Includes for program file headers here
  */
+#include "main.hpp"
 #include "globals.hpp"
+#include "drive.hpp"
+//#include "controller.hpp"
 
-/**
- * Includes for functions within main.cpp
- */
-
-enum class DriveMode {
-	tank,
-	arcade,
-};
-
-enum class StickCurve {
-	strong,
-	weak,
-};
-
-extern pros::Motor intake;
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -75,7 +63,8 @@ extern pros::Motor intake;
 // using namespace pros;
 // using namespace pros::literals;
 // using namespace okapi;
-using namespace okapi::literals;
+// using namespace okapi::literals;
+
 
 /**
  * Prototypes for the competition control tasks are redefined here to ensure

@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "master.h"
 
 // Miscellaneous
 
@@ -8,11 +8,11 @@ extern pros::Controller controller;
 // Motors
 
 extern pros::Motor leftFront;
-extern pros::Motor leftMid;
 extern pros::Motor leftBack;
+extern pros::Motor leftMid;
 extern pros::Motor rightFront;
-extern pros::Motor rightMid;
 extern pros::Motor rightBack;
+extern pros::Motor rightMid;
 
 // Motor Groups
 
@@ -39,3 +39,6 @@ extern pros::Optical optical;
 
 // extern pros::ADIDigitalOut single-acting
 // extern pros::ADIDigitalOut double-acting
+namespace Wings {
+    void extend(bool value);
+}
