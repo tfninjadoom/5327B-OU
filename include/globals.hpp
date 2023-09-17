@@ -1,9 +1,6 @@
 #pragma once
 #include "master.h"
 
-// Miscellaneous
-
-extern pros::Controller controller;
 
 // Motors
 

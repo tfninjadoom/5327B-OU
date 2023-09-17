@@ -1,5 +1,5 @@
 #include "master.h"
-//using namespace Controller;
+using namespace Controller;
 
 // FORWARD-DECLARED GLOBAL VARIABLES
 // DriveMode driveMode;
@@ -102,7 +102,7 @@ void opcontrol() {
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
-        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+        if ( newPress(L1) ) {
 			if (intakeMode != 1) {
 				intake.move(110);
 				intakeMode = 1;
@@ -112,7 +112,7 @@ void opcontrol() {
 			}
 		}
 
-		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
+		if ( newPress(R1) ) {
 			if (intakeMode != -1) {
 				intake.move(-110);
 				intakeMode = -1;
@@ -122,7 +122,7 @@ void opcontrol() {
 			}
 		}
 
-        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+        if ( newPress(L2) ) {
             if (driveMode == DriveMode::tank) {
                 driveMode = DriveMode::arcade;
             } else if (driveMode == DriveMode::arcade) {
@@ -132,7 +132,7 @@ void opcontrol() {
             }
         }
 
-        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
+        if ( newPress(R2) ) {
             if (stickCurve != StickCurve::weak) {
                 stickCurve = StickCurve::weak;
                 pros::lcd::set_text(1, "StickCurve::weak");
@@ -142,7 +142,7 @@ void opcontrol() {
             }
         }
 
-        if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+        if ( newPress(B) ) {
             stickCurve = StickCurve::slow;
             pros::lcd::set_text(1, "StickCurve::slow");
         }

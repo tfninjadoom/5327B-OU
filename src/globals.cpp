@@ -5,7 +5,6 @@
  * This file contains the initializations of the different electronic components on the robot and the assignment of ports.
  * */
 
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 // MACROS
 #define DRIVE_GEARSET pros::E_MOTOR_GEARSET_06
