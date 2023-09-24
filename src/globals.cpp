@@ -16,7 +16,7 @@ static const int
 RIGHT_PORTS[3] {4, 5, 6};
 
 static const int
-INTAKE_PORT {20};
+INTAKE_PORTS[2] {20, 19};
 
 // V5 SENSOR PORTS
 static const int
@@ -44,7 +44,8 @@ pros::Motor         rightFront(RIGHT_PORTS[0], DRIVE_GEARSET);
 pros::Motor         rightBack(RIGHT_PORTS[1], DRIVE_GEARSET);
 pros::Motor         rightMid(RIGHT_PORTS[2], DRIVE_GEARSET);
 
-pros::Motor         intake(INTAKE_PORT, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
+pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
 
 //Motor Groups
 pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
@@ -78,8 +79,10 @@ pros::ADIDigitalOut rightWing('B');
 // OBJECT GROUPS
 
 namespace Wings {
-    void extend(bool extendOrNot) {
+    void extendLeft(bool extendOrNot) {
         leftWing.set_value(extendOrNot);
+    }
+    void extendRight(bool extendOrNot) {
         rightWing.set_value(extendOrNot);
     }
 }

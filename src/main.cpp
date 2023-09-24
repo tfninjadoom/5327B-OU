@@ -23,11 +23,12 @@ void on_center_button() {
  */
 void initialize() {
 	pros::lcd::initialize();
-        pros::lcd::set_text(1, "StickCurve::weak");
+        pros::lcd::set_text(1, "StickCurve::strong");
         pros::lcd::set_text(2, "DriveMode::arcade");
         // pros::lcd::register_btn1_cb(on_center_button);
 
-	Wings::extend(false);
+	Wings::extendLeft(false);
+    Wings::extendRight(false);
 }
 
 /**
@@ -78,73 +79,85 @@ void opcontrol() {
 
 	DriveMode driveMode { DriveMode::arcade };
 
-	StickCurve stickCurve { StickCurve::weak };
+	StickCurve stickCurve { StickCurve::strong };
 
     int intakeMode { 0 };
+    bool leftWing { false };
+    bool rightWing { false };
+
+    Wings::extendLeft(false);
+    Wings::extendRight(false);
 
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                				(pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                				(pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-	
+		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+		//                 				(pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		//                 				(pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+
+
+        // drive modes
 		if (driveMode == DriveMode::tank) {
 			Drive::tankDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::tank");
-        }
-
-        if (driveMode == DriveMode::arcade) {
+        } else if (driveMode == DriveMode::arcade) {
 			Drive::arcadeDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::arcade");
-        }
-
-		if (driveMode == DriveMode::singleStick) {
+        } else if (driveMode == DriveMode::singleStick) {
 			Drive::singleStickDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
+
+        // intake buttons
         if ( newPress(L1) ) {
 			if (intakeMode != 1) {
 				intake.move(110);
+                intake2.move(-110);
 				intakeMode = 1;
 			} else {
 				intake.move(0);
+                intake2.move(0);
 				intakeMode = 0;
 			}
 		}
-
 		if ( newPress(R1) ) {
 			if (intakeMode != -1) {
 				intake.move(-110);
+                intake2.move(110);
 				intakeMode = -1;
 			} else {
 				intake.move(0);
+                intake2.move(0);
 				intakeMode = 0;
 			}
 		}
 
-        if ( newPress(L2) ) {
-            if (driveMode == DriveMode::tank) {
-                driveMode = DriveMode::arcade;
-            } else if (driveMode == DriveMode::arcade) {
-                driveMode = DriveMode::singleStick;
-            } else if (driveMode == DriveMode::singleStick) {
-                driveMode = DriveMode::tank;
-            }
-        }
 
-        if ( newPress(R2) ) {
-            if (stickCurve != StickCurve::weak) {
-                stickCurve = StickCurve::weak;
-                pros::lcd::set_text(1, "StickCurve::weak");
-            } else if (stickCurve != StickCurve::strong) {
-                stickCurve = StickCurve::strong;
+        // wings
+        if ( newPress(L2) ) {
+			if (leftWing != true) {
+				Wings::extendLeft(true);
+			} else {
+				Wings::extendLeft(false);
+			}
+		}
+		if ( newPress(R2) ) {
+			if (rightWing != true) {
+				Wings::extendRight(true);
+			} else {
+				Wings::extendRight(false);
+			}
+		}
+
+
+        // slow drive
+        if ( newPress(B) ) {
+            if ( stickCurve == StickCurve::strong ) {
+                stickCurve = StickCurve::slow;
+                pros::lcd::set_text(1, "StickCurve::slow");
+            } else if ( stickCurve == StickCurve::slow ) {
+                stickCurve = StickCurve::slow;
                 pros::lcd::set_text(1, "StickCurve::strong");
             }
-        }
-
-        if ( newPress(B) ) {
-            stickCurve = StickCurve::slow;
-            pros::lcd::set_text(1, "StickCurve::slow");
         }
 
         pros::delay(20);

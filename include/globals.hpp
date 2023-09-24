@@ -11,10 +11,13 @@ extern pros::Motor rightFront;
 extern pros::Motor rightBack;
 extern pros::Motor rightMid;
 
+extern pros::Motor intake;
+extern pros::Motor intake2;
+
 // Motor Groups
 
-extern pros::MotorGroup leftDrive;
-extern pros::MotorGroup rightDrive;
+//extern pros::MotorGroup leftDrive;
+//extern pros::MotorGroup rightDrive;
 
 // V5 Sensors
 
@@ -37,5 +40,6 @@ extern pros::Optical optical;
 // extern pros::ADIDigitalOut single-acting
 // extern pros::ADIDigitalOut double-acting
 namespace Wings {
-    void extend(bool value);
+    void extendLeft(bool extendOrNot);
+    void extendRight(bool extendOrNot);
 }

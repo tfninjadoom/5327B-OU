@@ -13,4 +13,3 @@ enum class StickCurve {
 	slow,
 };
 
-extern pros::Motor intake;
