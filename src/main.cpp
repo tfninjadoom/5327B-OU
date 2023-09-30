@@ -60,7 +60,19 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	
+	Wing::extendLeft(false);
+    Wing::extendRight(false);
+
+	if 
+	(Autonomous::Select::left) { Autonomous::left(); } 
+	else if 
+	(Autonomous::Select::right) { Autonomous::right(); } 
+	else if 
+	(Autonomous::Select::skills) { Autonomous::skills(); }
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -148,6 +160,12 @@ void opcontrol() {
 				Wing::extendRight(false);
 				Wing::right = false;
 			}
+		}
+
+
+		// autonomous
+		if ( newPress(A) ) {
+			autonomous();
 		}
 
 
