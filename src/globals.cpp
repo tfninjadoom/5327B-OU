@@ -20,17 +20,17 @@ INTAKE_PORTS[2] {20, 19};
 
 // V5 SENSOR PORTS
 static const int
-INERTIAL_PORT {7};
+INERTIAL_PORT {0};
 static const int 
-VISION_PORT {8};
+VISION_PORT {0};
 static const int 
-DISTANCE_PORT {9};
+DISTANCE_PORT {0};
 static const int 
-OPTICAL_PORT {10};
+OPTICAL_PORT {0};
 static const int 
-ROTATION_PORTS[3] {11, 12, 13};
+ROTATION_PORTS[3] {0, 0, 0};
 static const int 
-GPS_PORT {12};
+GPS_PORT {0};
 
 //------------------------------------------------------------------------------
 // OBJECT INITIALIZATION
@@ -78,11 +78,14 @@ pros::ADIDigitalOut rightWing('B');
 //------------------------------------------------------------------------------
 // OBJECT GROUPS
 
-namespace Wings {
+namespace Wing {
+    bool left   { false };
+    bool right  { false };
+
     void extendLeft(bool extendOrNot) {
         leftWing.set_value(extendOrNot);
     }
     void extendRight(bool extendOrNot) {
         rightWing.set_value(extendOrNot);
     }
-}
+} //namespace Wing

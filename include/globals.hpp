@@ -39,7 +39,11 @@ extern pros::Optical optical;
 
 // extern pros::ADIDigitalOut single-acting
 // extern pros::ADIDigitalOut double-acting
-namespace Wings {
+
+namespace Wing {
+    extern bool left;
+    extern bool right;
+
     void extendLeft(bool extendOrNot);
     void extendRight(bool extendOrNot);
-}
+} //namespace Wing

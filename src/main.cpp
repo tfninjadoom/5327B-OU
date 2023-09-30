@@ -27,8 +27,8 @@ void initialize() {
         pros::lcd::set_text(2, "DriveMode::arcade");
         // pros::lcd::register_btn1_cb(on_center_button);
 
-	Wings::extendLeft(false);
-    Wings::extendRight(false);
+	Wing::extendLeft(false);
+    Wing::extendRight(false);
 }
 
 /**
@@ -82,11 +82,9 @@ void opcontrol() {
 	StickCurve stickCurve { StickCurve::strong };
 
     int intakeMode { 0 };
-    bool leftWing { false };
-    bool rightWing { false };
 
-    Wings::extendLeft(false);
-    Wings::extendRight(false);
+    Wing::extendLeft(false);
+    Wing::extendRight(false);
 
 	while (true) {
 		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -132,30 +130,34 @@ void opcontrol() {
 		}
 
 
-        // wings
+        // Wing
         if ( newPress(L2) ) {
-			if (leftWing != true) {
-				Wings::extendLeft(true);
+			if (Wing::left != true) {
+				Wing::extendLeft(true);
+				Wing::left = true;
 			} else {
-				Wings::extendLeft(false);
+				Wing::extendLeft(false);
+				Wing::left = false;
 			}
 		}
 		if ( newPress(R2) ) {
-			if (rightWing != true) {
-				Wings::extendRight(true);
+			if (Wing::right != true) {
+				Wing::extendRight(true);
+				Wing::right = true;
 			} else {
-				Wings::extendRight(false);
+				Wing::extendRight(false);
+				Wing::right = false;
 			}
 		}
 
 
         // slow drive
         if ( newPress(B) ) {
-            if ( stickCurve == StickCurve::strong ) {
+            if ( stickCurve != StickCurve::slow ) {
                 stickCurve = StickCurve::slow;
                 pros::lcd::set_text(1, "StickCurve::slow");
             } else if ( stickCurve == StickCurve::slow ) {
-                stickCurve = StickCurve::slow;
+                stickCurve = StickCurve::strong;
                 pros::lcd::set_text(1, "StickCurve::strong");
             }
         }
