@@ -88,4 +88,4 @@ namespace Wing {
     void extendRight(bool extendOrNot) {
         rightWing.set_value(extendOrNot);
     }
-} //namespace Wing
+    }  // namespace Wing
