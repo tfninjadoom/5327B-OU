@@ -1,6 +1,11 @@
 #include "master.h"
 using namespace Controller;
 
+/* main.cpp
+ * This is the main file of our program, with the initialize(), autonomous(),
+ * disabled(), and opcontrol() functions.
+ * */
+
 // FORWARD-DECLARED GLOBAL VARIABLES
 // DriveMode driveMode;
 // StickCurve stickCurve;
@@ -104,6 +109,11 @@ void opcontrol() {
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
+        // import math
+        // math.sqrt(16) -> 4
+
+        // def sqrt(x):
+        // return x+1
 
         // intake buttons
         if ( newPress(L1) ) {
