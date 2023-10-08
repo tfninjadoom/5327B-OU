@@ -1,6 +1,6 @@
 #pragma once
 /**
- * \file main.h
+ * \file master.h
  *
  * Contains common definitions and header files used throughout your PROS
  * project.
