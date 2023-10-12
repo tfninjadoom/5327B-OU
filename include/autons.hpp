@@ -15,10 +15,14 @@ namespace Autonomous {
     extern void right();
     extern void skills();
 
-    namespace Select {
-        extern bool left;
-        extern bool right;
-        extern bool skills;
-    } //namespace Select
+    enum class Select {
+	    left,
+	    right,
+	    skills1,
+        skills2,
+        skills3,
+    }; //enum Select
+
+    extern Select selection;
 
 } //namespace Autonomous

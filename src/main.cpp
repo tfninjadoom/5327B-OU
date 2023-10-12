@@ -84,11 +84,13 @@ void autonomous() {
     Wing::extendRight(false);
 
 	if 
-	(Autonomous::Select::left) { Autonomous::left(); } 
+	(Autonomous::selection==Autonomous::Select::left) 
+	{ Autonomous::left(); } 
 	else if 
-	(Autonomous::Select::right) { Autonomous::right(); } 
-	else if 
-	(Autonomous::Select::skills) { Autonomous::skills(); }
+	(Autonomous::selection==Autonomous::Select::right) 
+	{ Autonomous::right(); } 
+	else 
+	{ Autonomous::skills(); }
 
 }
 

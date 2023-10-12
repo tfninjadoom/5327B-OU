@@ -9,7 +9,10 @@
 
 namespace Autonomous {
 
-    void skills() { skills1(); }
+    // forward declaration of selection
+    Select selection;
+
+    //------AUTONOMOUS FUNCTIONS-------//
 
     void left() {
         return;
@@ -19,14 +22,33 @@ namespace Autonomous {
         return;
     }
 
+
+    //--------SKILLS FUNCTIONS--------//
+
     void skills1() {
         return;
     }
+    void skills2() {
+        return;
+    }
+    void skills3() {
+        return;
+    }
 
-    namespace Select {
-        bool left {false};
-        bool right {false};
-        bool skills {false};
-    } //namespace Select
 
-} //namespace autonomous
+    //---------SKILLS SELECTION--------//
+
+    // call selected skills path
+    void skills() { 
+        if 
+        (selection==Select::skills1) { skills1(); }
+        else if 
+        (selection==Select::skills2) { skills2(); }
+        else if 
+        (selection==Select::skills3) { skills3(); }
+    }
+
+    // Uses rotation to determine selected skills
+    // {}
+
+} //namespace Autonomous
