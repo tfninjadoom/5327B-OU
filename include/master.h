@@ -51,6 +51,7 @@
 #include "drive.hpp"
 #include "controller.hpp"
 #include "autons.hpp"
+#include "EZ-Template/api.hpp"
 
 
 /**
