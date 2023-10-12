@@ -1,9 +1,12 @@
+/**
+ * @file globals.cpp
+ * @date 2023-10-11
+ * 
+ * @brief 
+ * This file contains the initializations of the different electronic 
+ * components on the robot and the assignment of ports.
+ */
 #include "master.h"
-
-/* globals.cpp
- * [Needs a better introduction]
- * This file contains the initializations of the different electronic components on the robot and the assignment of ports.
- * */
 
 
 // MACROS
@@ -11,9 +14,9 @@
 
 // MOTOR PORTS
 static const int 
-LEFT_PORTS[3] {1, 2, 3};
+LEFT_DRIVE_PORTS[3] {1, 2, 3};
 static const int 
-RIGHT_PORTS[3] {4, 5, 6};
+RIGHT_DRIVE_PORTS[3] {4, 5, 6};
 
 static const int
 INTAKE_PORTS[2] {20, 19};
@@ -32,17 +35,17 @@ ROTATION_PORTS[3] {0, 0, 0};
 static const int 
 GPS_PORT {0};
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // OBJECT INITIALIZATION
 
 // Motors
-pros::Motor         leftFront(LEFT_PORTS[0], DRIVE_GEARSET);
-pros::Motor         leftBack(LEFT_PORTS[1], DRIVE_GEARSET);
-pros::Motor         leftMid(LEFT_PORTS[2], DRIVE_GEARSET);
+pros::Motor         leftFront(LEFT_DRIVE_PORTS[0], DRIVE_GEARSET);
+pros::Motor         leftBack(LEFT_DRIVE_PORTS[1], DRIVE_GEARSET);
+pros::Motor         leftMid(LEFT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
-pros::Motor         rightFront(RIGHT_PORTS[0], DRIVE_GEARSET);
-pros::Motor         rightBack(RIGHT_PORTS[1], DRIVE_GEARSET);
-pros::Motor         rightMid(RIGHT_PORTS[2], DRIVE_GEARSET);
+pros::Motor         rightFront(RIGHT_DRIVE_PORTS[0], DRIVE_GEARSET);
+pros::Motor         rightBack(RIGHT_DRIVE_PORTS[1], DRIVE_GEARSET);
+pros::Motor         rightMid(RIGHT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
 pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
 pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
@@ -75,7 +78,7 @@ pros::ADIDigitalOut rightWing('B');
 // pros::ADIDigitalOut double-acting x6
 
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // OBJECT GROUPS
 
 namespace Wing {

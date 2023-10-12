@@ -1,22 +1,27 @@
+/**
+ * @file drive.cpp
+ * @date 2023-10-11
+ * 
+ * @brief
+ * This file contains the various drive modes that can be toggled between 
+ * during Driver Control. Includes a Joystick Curve function, Tank Drive, 
+ * Arcade Drive, and Single-Stick Arcade Drive. 
+ */
 #include "master.h"
-
-/* drive.cpp
- * This file contains the various drive modes that can be toggled between during Driver Control.
- * Includes a Joystick Curve function, Tank Drive, Arcade Drive, and Single-Stick Arcade Drive. 
- * */
-
-
-/* graph of red and blue lines from 5225A here
- * https://www.desmos.com/calculator/sdcgzah5ya */
 
 namespace Drive {
 
+	/**
+	 * graph of strong(red) and weak(blue) curves from 5225A here:
+ 	 * https://www.desmos.com/calculator/sdcgzah5ya
+	 */
 	int curveJoystick(StickCurve stickCurve, int input, double t = 20.) {
 		int val = 0;
 
 		if (stickCurve == StickCurve::strong) {
-			val = (std::exp(-t / 10) + 
-				std::exp((std::abs(input) - 127) / 10) * (1 - std::exp(-t / 10))) * input;
+			val = (std::exp(-t / 10)
+					+ std::exp((std::abs(input) - 127) / 10)
+					* (1 - std::exp(-t / 10))) * input;
 
 		} else if (stickCurve == StickCurve::weak) {
 			val = std::exp(((std::abs(input) - 127) * t) / 1000) * input;
@@ -27,6 +32,7 @@ namespace Drive {
 		
 		return val;
 	}
+
 
 	void arcadeDrive(StickCurve stickCurve) {
 		int forward_raw = controller.get_analog(ANALOG_LEFT_Y);

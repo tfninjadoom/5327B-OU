@@ -1,15 +1,13 @@
-#include "master.h"
-using namespace Controller;
-
-/* main.cpp
+/**
+ * @file main.cpp
+ * @date 2023-10-11
+ * 
+ * @brief 
  * This is the main file of our program, with the initialize(), autonomous(),
  * disabled(), and opcontrol() functions.
- * */
-
-// FORWARD-DECLARED GLOBAL VARIABLES
-// DriveMode driveMode;
-// StickCurve stickCurve;
-// int intakeMode;
+ */
+#include "master.h"
+using namespace Controller;
 
 /**
  * A (boilerplate) callback function for LLEMU's center button.
@@ -21,49 +19,64 @@ void on_center_button() {
 } //*/
 
 /**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
+ * Set up ALL sensors and tasks in this function.
+ * Runs as soon as program is started.
+ * 
+ * @details 
+ * Use this for any and all setup/startup code that is global to autonomous 
+ * and driver control. All other competition modes are blocked by initialize, 
+ * so keep execution time for this mode under a few seconds.
  */
 void initialize() {
+	
+	// displays stuff on the brain screen
 	pros::lcd::initialize();
         pros::lcd::set_text(1, "StickCurve::strong");
         pros::lcd::set_text(2, "DriveMode::arcade");
         // pros::lcd::register_btn1_cb(on_center_button);
 
+
+	//--------Piston Starting States---------//
 	Wing::extendLeft(false);
     Wing::extendRight(false);
 }
 
 /**
- * Runs while the robot is in the disabled state of Field Management System or
- * the VEX Competition Switch, following either autonomous or opcontrol. When
+ * Runs while robot is disabled before/during a competition match.
+ * 
+ * @details 
+ * Runs while the robot is in the disabled state of Field Management System or 
+ * the VEX Competition Switch, following either autonomous or opcontrol. When 
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+	//------------Pistons------------//
+	Wing::extendLeft(false);
+    Wing::extendRight(false);
+}
 
 /**
- * Runs after initialize(), and before autonomous when connected to the Field
- * Management System or the VEX Competition Switch. This is intended for
- * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
- *
- * This task will exit when the robot is enabled and autonomous or opcontrol
- * starts.
+ * Match-specific initialization routines.
+ * Runs while robot is disabled at the beginning of a competition match.
+ * 
+ * @details 
+ * Runs after initialize(), and before autonomous when connected to the Field 
+ * Management System or the VEX Competition Switch. This is intended for 
+ * competition-specific initialization routines, such as an autonomous 
+ * selector on the LCD. Followed by autonomous() or opcontrol().
  */
 void competition_initialize() {}
 
 /**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
+ * Sets up, then runs selected autonomous function.
+ * Called at the start of the autonomous mode.
+ * 
+ * @details 
+ * This function will be started in its own task with the default priority and 
+ * stack size whenever the robot is enabled via the Field Management System or 
+ * the VEX Competition Switch in the autonomous mode. Alternatively, this 
+ * function may be called in initialize or opcontrol for non-competition 
+ * testing purposes.
  */
 void autonomous() {
 	
@@ -79,18 +92,15 @@ void autonomous() {
 
 }
 
+
+//-----------DRIVER CONTROL------------//
 /**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
+ * (Robot is driven by a human.) 
+ * Run the robot based on controller and joystick inputs.
+ * 
+ * @details 
+ * This function will be started in its own task with the default priority and 
+ * stack size.
  */
 void opcontrol() {
 
@@ -121,11 +131,6 @@ void opcontrol() {
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
-        // import math
-        // math.sqrt(16) -> 4
-
-        // def sqrt(x):
-        // return x+1
 
         // intake buttons
         if ( newPress(L1) ) {
