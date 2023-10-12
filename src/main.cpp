@@ -123,13 +123,13 @@ void opcontrol() {
 
         // drive modes
 		if (driveMode == DriveMode::tank) {
-			Drive::tankDrive(stickCurve);
+			Drive1::tankDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::tank");
         } else if (driveMode == DriveMode::arcade) {
-			Drive::arcadeDrive(stickCurve);
+			Drive1::arcadeDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::arcade");
         } else if (driveMode == DriveMode::singleStick) {
-			Drive::singleStickDrive(stickCurve);
+			Drive1::singleStickDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
