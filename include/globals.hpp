@@ -17,6 +17,13 @@ extern pros::Motor leftMid;
 extern pros::Motor rightFront;
 extern pros::Motor rightBack;
 extern pros::Motor rightMid;
+extern const int 
+LEFT_DRIVE_PORTS[3];
+extern const int 
+RIGHT_DRIVE_PORTS[3];
+extern const int IMU_PORT;
+
+
 
 extern pros::Motor intake;
 extern pros::Motor intake2;

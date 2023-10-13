@@ -6,6 +6,7 @@
  * !! PENDING !!
  */
 #include "master.h"
+#include <iostream>
 
 namespace Autonomous {
 
@@ -50,5 +51,7 @@ namespace Autonomous {
 
     // Uses rotation to determine selected skills
     // {}
+    // rotation method: 
+    
 
 } //namespace Autonomous

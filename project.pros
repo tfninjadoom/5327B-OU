@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "10/11 DT, Intake, Wings",
+    "project_name": "10/12 DT, Intake, Wings",
     "target": "v5",
     "templates": {
       "kernel": {
