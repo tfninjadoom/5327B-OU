@@ -9,7 +9,7 @@
  */
 #include "master.h"
 
-namespace Drive {
+namespace Drive1 {
 
 	/**
 	 * graph of strong(red) and weak(blue) curves from 5225A here:
@@ -85,4 +85,4 @@ namespace Drive {
 		rightMid.move(-right_raw);
 	}
 
-} // namespace drive
+} // namespace Drive

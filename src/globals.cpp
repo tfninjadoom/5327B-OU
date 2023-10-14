@@ -13,17 +13,17 @@
 #define DRIVE_GEARSET pros::E_MOTOR_GEARSET_06
 
 // MOTOR PORTS
-static const int 
-LEFT_DRIVE_PORTS[3] {1, 2, 3};
-static const int 
-RIGHT_DRIVE_PORTS[3] {4, 5, 6};
+const int 
+LEFT_DRIVE_PORTS[3] {11, 12, 13};
+const int 
+RIGHT_DRIVE_PORTS[3] {14, 15, 16};
 
 static const int
-INTAKE_PORTS[2] {20, 19};
+INTAKE_PORTS[2] {20, 0};
 
 // V5 SENSOR PORTS
-static const int
-INERTIAL_PORT {0};
+const int
+IMU_PORT {1};
 static const int 
 VISION_PORT {0};
 static const int 
@@ -31,7 +31,7 @@ DISTANCE_PORT {0};
 static const int 
 OPTICAL_PORT {0};
 static const int 
-ROTATION_PORTS[3] {0, 0, 0};
+ROTATION_PORTS[3] {17, 18, 19};
 static const int 
 GPS_PORT {0};
 
@@ -55,13 +55,13 @@ pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
 pros::MotorGroup    rightDrive ( {rightFront, rightBack, rightMid} );
 
 // V5 Sensors
-pros::IMU           imu(INERTIAL_PORT);
+pros::IMU           imu(IMU_PORT);
 pros::Vision        vision(VISION_PORT);
 pros::Distance      distance(DISTANCE_PORT);
 pros::Optical       optical(OPTICAL_PORT);
-// pros::Rotation      rotation1(ROTATION_PORTS[0]);
-// pros::Rotation      rotation2(ROTATION_PORTS[1]);
-// pros::Rotation      rotation3(ROTATION_PORTS[2]);
+pros::Rotation      rotationP(ROTATION_PORTS[0]);
+pros::Rotation      rotationI(ROTATION_PORTS[1]);
+pros::Rotation      rotationD(ROTATION_PORTS[2]);
 pros::GPS           gps(GPS_PORT);
 
 // 3-Wire Sensors

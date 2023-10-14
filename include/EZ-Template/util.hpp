@@ -102,6 +102,6 @@ const bool IS_SD_CARD = pros::usd::is_installed();
 /**
  * Delay time for tasks
  */
-const int DELAY_TIME = 10;
+const int DELAY_TIME = 20;
 }  // namespace util
 }  // namespace ez

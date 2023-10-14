@@ -10,7 +10,7 @@
  */
 #include "master.h"
 
-namespace Drive {
+namespace Drive1 {
     int curveJoystick(StickCurve stickCurve, int input, double t);
 
     void arcadeDrive(StickCurve stickCurve);
