@@ -16,7 +16,7 @@ namespace Autonomous {
     //------AUTONOMOUS FUNCTIONS-------//
 
     void left() {
-        return;
+        autonomousPath();
     }
 
     void right() {

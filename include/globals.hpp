@@ -39,8 +39,8 @@ extern pros::IMU imu;
 extern pros::Vision vision;
 extern pros::Distance distance;
 extern pros::Optical optical;
-// extern pros::Rotation rotation1;   extern pros::Rotation rotation2;   extern
-// pros::Rotation rotation3; extern pros::GPS gps;
+extern pros::Rotation rotationP;   extern pros::Rotation rotationI;   extern pros::Rotation rotationD; 
+extern pros::GPS gps;
 
 // 3-Wire Sensors
 

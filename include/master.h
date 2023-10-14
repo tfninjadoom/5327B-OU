@@ -53,6 +53,8 @@
 #include "autons.hpp"
 #include "rotation.hpp"
 #include "EZ-Template/api.hpp"
+#include "autons/chassis.hpp"
+#include "autons/path_1_movement.hpp"
 
 
 /**

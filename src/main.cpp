@@ -28,17 +28,26 @@ void on_center_button() {
  * so keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	
+
+
 	// displays stuff on the brain screen
 	pros::lcd::initialize();
         pros::lcd::set_text(1, "StickCurve::strong");
         pros::lcd::set_text(2, "DriveMode::arcade");
         // pros::lcd::register_btn1_cb(on_center_button);
 
+	pros::delay(500); // Stop the user from doing anything while legacy ports configure
 
 	//--------Piston Starting States---------//
 	Wing::extendLeft(false);
     Wing::extendRight(false);
+
+	//--------Chassis Configuration---------//
+	chassis.set_active_brake(0.1); 	// Sets active brake kP, recommended value 0.1.
+	default_constants();			// 
+	exit_condition_defaults();		// 
+
+	chassis.initialize(); 
 }
 
 /**
@@ -79,9 +88,14 @@ void competition_initialize() {}
  * testing purposes.
  */
 void autonomous() {
-	
+
 	Wing::extendLeft(false);
     Wing::extendRight(false);
+
+	chassis.reset_pid_targets();				// Resets PID targets to 0.
+	chassis.reset_gyro();						// Resets gyro position to 0.
+	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
+	chassis.set_drive_brake(MOTOR_BRAKE_HOLD);	// Set motors to hold. This helps autonomous consistency.
 
 	if 
 	(Autonomous::selection==Autonomous::Select::left) 
@@ -114,6 +128,10 @@ void opcontrol() {
 
     Wing::extendLeft(false);
     Wing::extendRight(false);
+
+	//--------Chassis Reconfiguration---------//
+	chassis.set_active_brake(0);
+	chassis.set_drive_brake(MOTOR_BRAKE_COAST);
 
 	while (true) {
 		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -197,6 +215,6 @@ void opcontrol() {
             }
         }
 
-        pros::delay(20);
+        pros::delay(ez::util::DELAY_TIME);
     }
 }
