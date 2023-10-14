@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "10/11 DT, Intake, Wings",
+    "project_name": "10/12 Driver Control",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,7 +309,9 @@
       }
     },
     "upload_options": {
-      "icon": "clawbot"
+      "icon": "clawbot",
+      "description": "Driver Control",
+      "slot": 1
     }
   }
 }

@@ -14,9 +14,9 @@
 
 // MOTOR PORTS
 static const int 
-LEFT_DRIVE_PORTS[3] {1, 2, 3};
+LEFT_DRIVE_PORTS[3] {11, 12, 13};
 static const int 
-RIGHT_DRIVE_PORTS[3] {4, 5, 6};
+RIGHT_DRIVE_PORTS[3] {14, 15, 16};
 
 static const int
 INTAKE_PORTS[2] {20, 19};
