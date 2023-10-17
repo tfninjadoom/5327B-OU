@@ -5,7 +5,7 @@
 
 // constants for the speed of the robot
 const int DRIVE_SPEED = 100;
-int INTAKE_DURATION{1000}; // duration of intake before stopping
+int INTAKE_DURATION{5000}; // duration of intake before stopping
 int INTAKE_SPEED{150}; // for the speed of the intakezzz
 // Function to grab the ball
 void moveForward(double inches,int speed) {
@@ -45,14 +45,14 @@ void turn(int speed, int degrees) {
   chassis.wait_drive();
 }
 void autonomousPath() {
-  moveForward(36, DRIVE_SPEED);
+  moveForward(2, DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
-  moveForward(10,DRIVE_SPEED);
-  moveBackward(10,DRIVE_SPEED);
-  turn(DRIVE_SPEED, -45);
+  //moveForward(10,DRIVE_SPEED);
+  //moveBackward(10,DRIVE_SPEED);
+  /*turn(50, -45);
   moveForward(40,DRIVE_SPEED);
   grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
-  turn(135,DRIVE_SPEED);
+  turn(DRIVE_SPEED,135);
   moveForward(24,DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
   //moveForward(10,DRIVE_SPEED);
@@ -62,7 +62,7 @@ void autonomousPath() {
   grabBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
   moveBackward(10,DRIVE_SPEED);
   turn(DRIVE_SPEED,180);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 40);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 40);*/
 
 
 }

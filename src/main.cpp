@@ -8,6 +8,20 @@
  */
 #include "master.h"
 using namespace Controller;
+// autonumous sections: 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * A (boilerplate) callback function for LLEMU's center button.
@@ -43,7 +57,7 @@ void initialize() {
     Wing::extendRight(false);
 
 	//--------Chassis Configuration---------//
-	chassis.set_active_brake(0.1); 	// Sets active brake kP, recommended value 0.1.
+	//chassis.set_active_brake(0.1); 	// Sets active brake kP, recommended value 0.1.
 	default_constants();			// 
 	exit_condition_defaults();		// 
 
@@ -88,14 +102,14 @@ void competition_initialize() {}
  * testing purposes.
  */
 void autonomous() {
-
+	Autonomous::selection=Autonomous::Select::left;
 	Wing::extendLeft(false);
     Wing::extendRight(false);
 
 	chassis.reset_pid_targets();				// Resets PID targets to 0.
 	chassis.reset_gyro();						// Resets gyro position to 0.
 	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
-	chassis.set_drive_brake(MOTOR_BRAKE_HOLD);	// Set motors to hold. This helps autonomous consistency.
+	chassis.set_drive_brake(MOTOR_BRAKE_COAST);	// Set motors to hold. This helps autonomous consistency.
 
 	if 
 	(Autonomous::selection==Autonomous::Select::left) 
@@ -130,7 +144,7 @@ void opcontrol() {
     Wing::extendRight(false);
 
 	//--------Chassis Reconfiguration---------//
-	chassis.set_active_brake(0);
+	//chassis.set_active_brake(0);
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);
 
 	while (true) {
@@ -138,14 +152,15 @@ void opcontrol() {
 		//                 				(pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		//                 				(pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
-
+		// set drive brakes to coast
+		chassis.set_drive_brake(MOTOR_BRAKE_COAST);
         // drive modes
 		if (driveMode == DriveMode::tank) {
 			Drive1::tankDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::tank");
         } else if (driveMode == DriveMode::arcade) {
 			Drive1::arcadeDrive(stickCurve);
-            pros::lcd::set_text(2, "DriveMode::arcade");
+            pros::lcd::set_text(2, "DriveModepros ::arcade");
         } else if (driveMode == DriveMode::singleStick) {
 			Drive1::singleStickDrive(stickCurve);
             pros::lcd::set_text(2, "DriveMode::singleStick");
@@ -215,6 +230,6 @@ void opcontrol() {
             }
         }
 
-        pros::delay(ez::util::DELAY_TIME);
+        pros::delay(20);
     }
 }
