@@ -13,7 +13,7 @@ void moveForward(double inches,int speed) {
   chassis.set_drive_pid(inches*2, speed);
   chassis.wait_drive();
 }
-void moveBackward(double inches, int speed) {
+void moveBackward(double inches,int speed) {
   chassis.set_drive_pid(-inches, speed);
   chassis.wait_drive();
 }

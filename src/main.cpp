@@ -7,6 +7,7 @@
  * disabled(), and opcontrol() functions.
  */
 #include "master.h"
+#include "path_movement.hpp"
 using namespace Controller;
 // autonumous sections: 
 
@@ -285,9 +286,11 @@ void opcontrol() {
 
 
 		// autonomous
-		if ( newPress(A) ) {
+		/*if ( newPress(A) ) {
 			autonomous();
-		}
+		}*/
+
+
 
 
         // slow drive
@@ -303,4 +306,43 @@ void opcontrol() {
 
         pros::delay(20);
     }
+
+
+
+typedef pros::controller_digital_e_t controller_button;
+
+int hold_D = 2000;
+
+int ButtonPressTime(controller_button key ) {
+	pros::Controller master(pros::E_CONTROLLER_MASTER);
+	int run_num = 0
+	while (master.get_digital(key)) {
+	    run_num++;
+		pros::delay(100);
+	}
+
+	return run_num;
+}
+
+
+int autonomousRoute_count = 0;
+
+void (*routes[])() = {
+	autonomousPath1,
+	autonomousPath2
+};
+
+int numberOfRoutes = sizeof(routes) / sizeof(routes[0]);
+
+void run_autonomoue_routes(){
+  int mod_var = autonomousRoute_count % numberOfRoutes;
+  if (ButtonPressTime(pros::E_CONTROLLER_DIGITAL_A) > hold_D) {
+    controller.set_text(0, 0, ("Running " + std::to_string(routes[mod_var])));
+    
+    routes[mod_var]();
+  } else {
+    autonomousRoute_count++;
+    controller.set_text(0, 0, ("Useing : " + std::to_string(routes[mod_var + 1])));
+  }
+}
 }
