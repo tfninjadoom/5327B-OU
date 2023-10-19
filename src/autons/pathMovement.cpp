@@ -7,7 +7,7 @@
 
 const int DRIVE_SPEED = 100;
 int INTAKE_DURATION{1000}; // duration of intake before stopping
-int INTAKE_SPEED{150}; // for the speed of the intakezzz
+int INTAKE_SPEED{150}; // for the speed of the intake
 // Function to grab the ball
 void moveForward(double inches,int speed) {
   chassis.set_drive_pid(inches*2, speed);
