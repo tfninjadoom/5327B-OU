@@ -32,8 +32,40 @@ void stopIntake(){
 	intake.move(0);
   	intake2.move(0);
 }
+void open_LW(){
+        Wing::extendLeft(true);
+        Wing::left = true;
 
+}
 
+void open_RW(){
+        Wing::extendRight(true);
+        Wing::right = true;
+}
+void close_RW(){
+    Wing::extendRight(false);
+    Wing::right = false;
+
+}
+void close_LW(){
+
+  Wing::extendLeft(false);
+  Wing::left = false;
+}
+void open_BW(){
+  Wing::extendLeft(true);
+  Wing::left = true;
+  Wing::extendRight(true);
+  Wing::right = true;
+
+}
+void close_BW(){
+   Wing::extendLeft(false);
+  Wing::left = false;
+  Wing::extendRight(false);
+  Wing::right = false;
+
+}
 void releaseBall(int speed, int duration,bool move, int dis) {
   intake.move(speed);
   intake2.move(-speed);
@@ -118,24 +150,25 @@ void autonomousPath2() {
 void Skills() {
 
   moveForward(25, DRIVE_SPEED);
-  turn(DRIVE_SPEED, -45);
+  turn(DRIVE_SPEED, 45, true);
   moveForward(55, DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
   moveBackward(25, DRIVE_SPEED);
-  turn(DRIVE_SPEED, 135);
+  turn(DRIVE_SPEED, 135, false);
 
   grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 200 );
   moveForward(30, DRIVE_SPEED);
   stopIntake();
   moveBackward(30, DRIVE_SPEED);
-  turn(DRIVE_SPEED, 135);
+  turn(DRIVE_SPEED, 135, false);
   moveForward(25 DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 200 );
   stopIntake();
   moveBackward(35, DRIVE_SPEED);
-  turn(DRIVE_SPEED, 45);
+  turn(DRIVE_SPEED, 45, false);
   moveForward(30, DRIVE_SPEED);
-  turn(DRIVE_SPEED, -90);
+  turn(DRIVE_SPEED, 90, true);
+  open_BW()
   moveForward(100, DRIVE_SPEED);
 }
 
