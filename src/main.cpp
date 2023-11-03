@@ -269,9 +269,9 @@ void opcontrol() {
     }
 
     // autonomous
-    /*if ( newPress(A) ) {
+    if ( newPress(A) ) {
             autonomous();
-    }*/
+    }
 
     // slow drive
     if (newPress(B)) {

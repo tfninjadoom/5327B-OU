@@ -115,4 +115,29 @@ void autonomousPath1() {
 void autonomousPath2() {
   // the code for the second autonomous path woudl go here
   }
+void Skills() {
+
+  moveForward(25, DRIVE_SPEED);
+  turn(DRIVE_SPEED, -45);
+  moveForward(55, DRIVE_SPEED);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
+  moveBackward(25, DRIVE_SPEED);
+  turn(DRIVE_SPEED, 135);
+
+  grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 200 );
+  moveForward(30, DRIVE_SPEED);
+  stopIntake();
+  moveBackward(30, DRIVE_SPEED);
+  turn(DRIVE_SPEED, 135);
+  moveForward(25 DRIVE_SPEED);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 200 );
+  stopIntake();
+  moveBackward(35, DRIVE_SPEED);
+  turn(DRIVE_SPEED, 45);
+  moveForward(30, DRIVE_SPEED);
+  turn(DRIVE_SPEED, -90);
+  moveForward(100, DRIVE_SPEED);
+}
+
+
 
