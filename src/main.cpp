@@ -269,21 +269,36 @@ void opcontrol() {
     }
 
     // autonomous commands
-    if (newPress(A) ) {
-      while(true){
-        if (newPress(A) ) {
-        autonomous();
-        
-      }
-        if(newpress(B)){
-        Skills()
-      }
-        if(newpress(X)){
-          break
-        }
-            
-    }
+    if (newPress(A)) {
+      master.clear();
+      master.print(0, 0, "You are in autonomous mode");
+      master.print(1, 0, "A: Path 1, B: Skills, X: Exit");
 
+      while (true) {
+        if (newPress(A)) {
+          master.clear();
+          master.print(0, 0, "Running autonomous...");
+          autonomous();
+          master.clear();
+          master.print(0, 0, "Autonomous finished");
+          master.print(1, 0, "A: Auto, B: Skills, X: Exit");
+        }
+        if (newPress(B)) {
+          master.clear();
+          master.print(0, 0, "Running skills...");
+          Skills();
+          master.clear();
+          master.print(0, 0, "Finished with skills");
+          master.print(1, 0, "B: Skills, A: Auto, X: Exit");
+        }
+        if (newPress(X)) {
+          master.clear();
+          break;
+        }
+        pros::delay(20); 
+      }
+  }
+}
     // slow drive
     if (newPress(B)) {
       if (stickCurve != StickCurve::slow) {
