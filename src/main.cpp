@@ -268,9 +268,20 @@ void opcontrol() {
       }
     }
 
-    // autonomous
-    if ( newPress(A) ) {
-            autonomous();
+    // autonomous commands
+    if (newPress(A) ) {
+      while(true){
+        if (newPress(A) ) {
+        autonomous();
+        
+      }
+        if(newpress(B)){
+        Skills()
+      }
+        if(newpress(X)){
+          break
+        }
+            
     }
 
     // slow drive

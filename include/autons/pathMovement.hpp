@@ -9,3 +9,4 @@ void stopIntake();
 void releaseBall(int speed, int duration,bool move, int dis);
 void autonomousPath1();
 void autonomousPath2();
+void Skills();
