@@ -75,6 +75,8 @@ pros::GPS           gps(GPS_PORT);
 // pros::ADIDigitalOut single-acting
 pros::ADIDigitalOut leftWing('A');
 pros::ADIDigitalOut rightWing('B');
+pros::ADIDDigitalOut Blocker1('F');
+pros::ADIDigitalOut Blocker2('D');
 // pros::ADIDigitalOut double-acting x6
 
 
