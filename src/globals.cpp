@@ -94,7 +94,12 @@ namespace Wing {
         rightWing.set_value(extendOrNot);
     }
     }  // namespace Wing
+bool Extended{false};
 void Extend_Blockers(bool openOrNot){
+ if (Extended) {
+  Extened{false}
+ else{
+  Extended{true}
  Blocker1.set_value(OpenOrNot);
  Blocker2.set_value(OpenOrNot);
 }
