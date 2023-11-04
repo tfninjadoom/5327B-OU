@@ -236,6 +236,9 @@ void opcontrol() {
         intakeMode = 0;
       }
     }
+    if(newPress(A)){
+       }
+    
     if (newPress(R1)) {
       if (intakeMode != -1) {
         intake.move(-110);
@@ -269,7 +272,7 @@ void opcontrol() {
     }
 
     // autonomous commands
-    if (newPress(A)) {
+    if (newPress('LEFT')) {
       master.clear();
       master.print(0, 0, "You are in autonomous mode");
       master.print(1, 0, "A: Path 1, B: Skills, X: Exit");
