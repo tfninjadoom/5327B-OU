@@ -237,7 +237,13 @@ void opcontrol() {
       }
     }
     if(newPress(A)){
+        if(Extended) {
+          Extend_Blockers(true);
        }
+        else if( Extended == false){
+          Extend_Blockers(false);
+      }
+    }
     
     if (newPress(R1)) {
       if (intakeMode != -1) {
