@@ -53,7 +53,7 @@ extern pros::GPS gps;
 
 // extern pros::ADIDigitalOut single-acting
 // extern pros::ADIDigitalOut double-acting
-
+void Extend_Blockers(bool openOrNot);
 namespace Wing {
     extern bool left;
     extern bool right;
