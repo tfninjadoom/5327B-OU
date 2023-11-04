@@ -94,3 +94,11 @@ namespace Wing {
         rightWing.set_value(extendOrNot);
     }
     }  // namespace Wing
+void Extend_Blockers(bool openOrNot){
+ Blocker1.set_value(OpenOrNot);
+ Blocker2.set_value(OpenOrNot);
+}
+
+
+ 
+ 
