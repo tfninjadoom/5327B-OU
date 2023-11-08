@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <string>
 
 #include "master.h"
@@ -35,4 +35,4 @@ void runAutonomousRoutines() {
     controller.set_text(0, 0,
                         ("Useing : " + std::to_string(routes[mod_var + 1])));
   }
-}
+}*/
