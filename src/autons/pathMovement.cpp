@@ -161,14 +161,14 @@ void Skills() {
   stopIntake();
   moveBackward(30, DRIVE_SPEED);
   turn(DRIVE_SPEED, 135, false);
-  moveForward(25 DRIVE_SPEED);
+  moveForward(25 ,DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 200 );
   stopIntake();
   moveBackward(35, DRIVE_SPEED);
   turn(DRIVE_SPEED, 45, false);
   moveForward(30, DRIVE_SPEED);
   turn(DRIVE_SPEED, 90, true);
-  open_BW()
+  open_BW();
   moveForward(100, DRIVE_SPEED);
 }
 
