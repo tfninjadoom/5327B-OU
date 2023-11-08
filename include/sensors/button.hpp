@@ -2,6 +2,6 @@
 
 #include "master.h"
 
-void runAutonomousRoutines();
+//void runAutonomousRoutines();
 typedef pros::controller_digital_e_t controller_button;
-int ButtonPressTime(controller_button key);
+//int ButtonPressTime(controller_button key);
