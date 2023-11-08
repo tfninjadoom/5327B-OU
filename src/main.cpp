@@ -7,7 +7,6 @@
  * disabled(), and opcontrol() functions.
  */
 #include "master.h"
-#include "path_movement.hpp"
 using namespace Controller;
 // autonumous sections:
 
@@ -52,7 +51,7 @@ void releaseBall(int speed, int duration,bool move, int dis) {
   intake2.move(0);
 }*/
 
-void swing(int speed, int degrees, bool right) {
+/*void swing(int speed, int degrees, bool right) {
   if (right) {
     chassis.set_swing_pid(ez::RIGHT_SWING, degrees, speed);
     chassis.wait_drive();
@@ -71,7 +70,7 @@ void turn(int speed, int degrees, bool right) {
     chassis.wait_drive();
   }
 }
-
+*/
 /**
  * A (boilerplate) callback function for LLEMU's center button.
  *
@@ -112,13 +111,6 @@ void initialize() {
 
   chassis.initialize();
 
-  // initializes tasks
-  typedef pros::controller_digital_e_t controller_button;
-  pros::Task T_runAutonomousRoutines(runAutonomousRoutines,
-                                     "Task runAutonomousRoutines");
-  pros::Task T_buttonPressTime(int ButtonPressTime);
-  // pros::Task T_buttonPressTime(int ButtonPressTime, (controller_button) key,
-  // "Task ButtonPressTime");
 }
 
 /**
@@ -214,13 +206,13 @@ void opcontrol() {
     chassis.set_drive_brake(MOTOR_BRAKE_COAST);
     // drive modes
     if (driveMode == DriveMode::tank) {
-      Drive1::tankDrive(stickCurve);
+      Drive1::tankDrive();
       pros::lcd::set_text(2, "DriveMode::tank");
     } else if (driveMode == DriveMode::arcade) {
-      Drive1::arcadeDrive(stickCurve);
+      Drive1::arcadeDrive();
       pros::lcd::set_text(2, "DriveModepros ::arcade");
     } else if (driveMode == DriveMode::singleStick) {
-      Drive1::singleStickDrive(stickCurve);
+      Drive1::singleStickDrive();
       pros::lcd::set_text(2, "DriveMode::singleStick");
     }
 
@@ -278,7 +270,7 @@ void opcontrol() {
     }
 
     // autonomous commands
-    if (newPress('LEFT')) {
+    if (newPress(LEFT)) {
       master.clear();
       master.print(0, 0, "You are in autonomous mode");
       master.print(1, 0, "A: Path 1, B: Skills, X: Exit");
@@ -306,8 +298,8 @@ void opcontrol() {
         }
         pros::delay(20); 
       }
+    }
   }
-}
     // slow drive
     if (newPress(B)) {
       if (stickCurve != StickCurve::slow) {
@@ -321,4 +313,4 @@ void opcontrol() {
 
     pros::delay(20);
   }
-}
+
