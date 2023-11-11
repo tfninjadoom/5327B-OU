@@ -6,6 +6,7 @@
 // constants for the speed of the robot
 
 const int DRIVE_SPEED = 100;
+int DRIVE_FAST = 120;
 int INTAKE_DURATION{1000}; // duration of intake before stopping
 int INTAKE_SPEED{150}; // for the speed of the intake
 // Function to grab the ball
@@ -30,7 +31,7 @@ void grabBall(int speed, int duration, bool move, int dis) {
 }
 void stopIntake(){
 	intake.move(0);
-  	intake2.move(0);
+  intake2.move(0);
 }
 void open_LW(){
         Wing::extendLeft(true);
@@ -66,6 +67,14 @@ void close_BW(){
   Wing::right = false;
 
 }
+void startintake(int speed){
+  intake.move(speed);
+  intake2.move(-speed);
+}
+void realease(int speed){
+  intake.move(-speed);
+  intake2.move(speed);
+}
 void releaseBall(int speed, int duration,bool move, int dis) {
   intake.move(speed);
   intake2.move(-speed);
@@ -78,6 +87,27 @@ void releaseBall(int speed, int duration,bool move, int dis) {
   intake2.move(0);*/
 }
 
+void curve_drive(int speed, int distance, int degrees_per_turn, int curvedegrees, bool right) {
+  int moved_distance = 0;
+  int distance_per_loop =  distance/(curvedegrees/degrees_per_turn);
+  int Dis_var = curvedegrees/degrees_per_turn;
+  if (right){
+      while(moved_distance < Dis_var) {
+    chassis.set_drive_pid(distance_per_loop, speed);
+    chassis.set_turn_pid(-degrees_per_turn, speed);
+    moved_distance += degrees_per_turn;
+  }
+  }
+  else{
+
+    while(moved_distance < Dis_var) {
+    chassis.set_drive_pid(distance_per_loop, speed);
+    chassis.set_turn_pid(degrees_per_turn, speed);
+    moved_distance += degrees_per_turn;
+  }
+  }
+  
+}
 
 void swing(int speed, int degrees, bool right) {
   
@@ -105,6 +135,7 @@ void  turn(int speed, int degrees, bool right) {
   }
 }
 int dd = 0;
+//safe auton path
 void autonomousPath1() {
   moveForward(40, DRIVE_SPEED);
   releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
@@ -113,9 +144,23 @@ void autonomousPath1() {
   turn(50, 180, true);
   moveBackward(40, DRIVE_SPEED);
 
-  //moveBackward(15, DRIVE_SPEED);
-  //turn(50, 45, true);
-  /*grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
+
+}
+
+
+//far side sutonomous path
+void testpath() {
+
+  moveForward(40, DRIVE_SPEED);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
+  stopIntake();
+  moveBackward(25, DRIVE_SPEED );
+  turn(50, 180, true);
+  moveBackward(40, DRIVE_SPEED);
+
+  moveBackward(15, DRIVE_SPEED);
+  turn(50, 45, true);
+  grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
   moveForward(180, DRIVE_SPEED);
   stopIntake();
   turn(50, 135, false);
@@ -124,28 +169,12 @@ void autonomousPath1() {
   moveForward(10, DRIVE_SPEED);
   pros::delay(1000);
   return;
-  //moveForward(10,DRIVE_SPEED);
-  //moveBackward(10,DRIVE_SPEED);
-  /*turn(50, -45);
-  moveForward(40,DRIVE_SPEED);
-  grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
-  turn(DRIVE_SPEED,135);
-  moveForward(24,DRIVE_SPEED);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
-  //moveForward(10,DRIVE_SPEED);
-  moveBackward(10,DRIVE_SPEED);
-  turn(DRIVE_SPEED,180);
-  moveForward(40,DRIVE_SPEED);
-  grabBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
-  moveBackward(10,DRIVE_SPEED);
-  turn(DRIVE_SPEED,180);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 40);*/
 
 
 }
-
 void autonomousPath2() {
-  // the code for the second autonomous path woudl go here
+  
+  moveForward(40, DRIVE_SPEED);
   }
 void Skills() {
 
