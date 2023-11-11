@@ -7,6 +7,7 @@
  * disabled(), and opcontrol() functions.
  */
 #include "master.h"
+#include <iostream>
 using namespace Controller;
 // autonumous sections:
 
@@ -89,6 +90,7 @@ void on_center_button() {
  * and driver control. All other competition modes are blocked by initialize,
  * so keep execution time for this mode under a few seconds.
  */
+
 void initialize() {
   // displays stuff on the brain screen
   pros::lcd::initialize();
