@@ -60,6 +60,12 @@ void open_BW(){
   Wing::right = true;
 
 }
+void extendboth(bool extendOrNot){
+  Wing::extendLeft(extendOrNot);
+  Wing::left = extendOrNot;
+  Wing::extendRight(extendOrNot);
+  Wing::right = extendOrNot;
+    }
 void close_BW(){
    Wing::extendLeft(false);
   Wing::left = false;
@@ -136,13 +142,55 @@ void  turn(int speed, int degrees, bool right) {
 }
 int dd = 0;
 //safe auton path
+// drive speed 0-127 
 void autonomousPath1() {
-  moveForward(40, DRIVE_SPEED);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
+  startintake(INTAKE_SPEED);
+  moveForward(15, 70);
+  pros::delay(200);
   stopIntake();
-  moveBackward(25, DRIVE_SPEED );
-  turn(50, 180, true);
-  moveBackward(40, DRIVE_SPEED);
+  moveBackward(15, 100);
+  turn(100, 155, true);
+  extendboth(true);
+  moveForward(30, 50);
+  turn(100, 80, false);
+  realease(INTAKE_SPEED);
+  moveForward(20, 75);
+  turn(100, 10, true);
+  moveForward(10, 80);
+  extendboth(false);
+  moveForward(35, 125);
+  pros::delay(300);
+  moveBackward(15, 75);
+  turn(75, 75, false);
+  startintake(INTAKE_SPEED);
+  moveForward(40, 75);
+  pros::delay(200);
+  stopIntake();
+  moveBackward(10, 75);
+  turn(75, 75, false);
+  extendboth(true);
+  moveForward(24, 75);
+  turn(75, 90, true);
+  realease(INTAKE_SPEED);
+  moveForward(35, 125);
+  pros::delay(300);
+  moveBackward(15, 75);
+  turn(75, 180, false);
+  startintake(INTAKE_SPEED);
+  moveForward(40, 75);
+  pros::delay(200);
+  stopIntake();
+  moveBackward(10, 75);
+  turn(75, 180, false);
+  moveForward(40, 125);
+  pros::delay(200);
+  moveBackward(10, 75);
+
+  
+
+  
+
+
 
 
 }
@@ -150,13 +198,6 @@ void autonomousPath1() {
 
 //far side sutonomous path
 void testpath() {
-
-  moveForward(40, DRIVE_SPEED);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
-  stopIntake();
-  moveBackward(25, DRIVE_SPEED );
-  turn(50, 180, true);
-  moveBackward(40, DRIVE_SPEED);
 
   moveBackward(15, DRIVE_SPEED);
   turn(50, 45, true);
