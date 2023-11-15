@@ -75,7 +75,7 @@ pros::GPS           gps(GPS_PORT);
 // pros::ADIDigitalOut single-acting
 pros::ADIDigitalOut leftWing('A');
 pros::ADIDigitalOut rightWing('B');
-pros::ADIDDigitalOut Blocker1('F');
+pros::ADIDigitalOut Blocker1('F');
 pros::ADIDigitalOut Blocker2('D');
 // pros::ADIDigitalOut double-acting x6
 
@@ -93,17 +93,22 @@ namespace Wing {
     void extendRight(bool extendOrNot) {
         rightWing.set_value(extendOrNot);
     }
-    }  // namespace Wing
+    void extendboth(bool extendOrNot){
+      leftWing.set_value(extendOrNot);
+      rightWing.set_value(extendOrNot);
+    }; // namespace Wing
 bool Extended{false};
 void Extend_Blockers(bool openOrNot){
  if (Extended) {
-  Extened{false}
+  Extended = false;
+ }
  else{
-  Extended{true}
- Blocker1.set_value(OpenOrNot);
- Blocker2.set_value(OpenOrNot);
+    Extended = true;
+    Blocker1.set_value(openOrNot);
+    Blocker2.set_value(openOrNot);
 }
+};
 
 
- 
+} // namespace Wing
  
