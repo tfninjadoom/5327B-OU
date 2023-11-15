@@ -230,14 +230,6 @@ void opcontrol() {
         intakeMode = 0;
       }
     }
-    if(newPress(A)){
-        if(Extended) {
-          Extend_Blockers(true);
-       }
-        else if( Extended == false){
-          Extend_Blockers(false);
-      }
-    }
     
     if (newPress(R1)) {
       if (intakeMode != -1) {
@@ -272,7 +264,7 @@ void opcontrol() {
     }
 
     // autonomous commands
-    if (newPress(LEFT)) {
+    if (newPress(A)) {
       master.clear();
       master.print(0, 0, "You are in autonomous mode");
       master.print(1, 0, "A: Path 1, B: Skills, X: Exit");
