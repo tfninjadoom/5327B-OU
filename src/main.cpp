@@ -13,7 +13,96 @@ using namespace Controller;
 
 
 
+const int DRIVE_SPEED = 100;
+int INTAKE_DURATION{5000}; // duration of intake before stopping
+int INTAKE_SPEED{150}; // for the speed of the intakezzz
+// Function to grab the ball
+void moveForward(double inches,int speed) {
+  chassis.set_drive_pid(inches*2, speed);
+  chassis.wait_drive();
+}
+void moveBackward(double inches, int speed) {
+  chassis.set_drive_pid(-inches*2, speed);
+  chassis.wait_drive();
+}
+// the move parameter is if moveing forward would help grab the ball for example if the ball if against a barrier, the same for realeing the ball
+void grabBall(int speed, int duration, bool move, int dis) {
+  intake.move(speed);
+  intake2.move(-speed);
+  if(move){
+    moveForward(dis,DRIVE_SPEED);
+  }
+  pros::delay(duration);
+  intake.move(0);
+  intake2.move(0);
+}
 
+void releaseBall(int speed, int duration,bool move, int dis) {
+  intake.move(-speed);
+  intake2.move(speed);
+  if(move){
+    moveForward(dis,DRIVE_SPEED);
+  }
+  pros::delay(duration);
+  intake.move(0);
+  intake2.move(0);
+}
+
+void stopIntake(){
+	intake.move(0);
+  intake2.move(0);
+}
+
+void startintake(int speed){
+  intake.move(speed);
+  intake2.move(-speed);
+}	
+
+void realease(int speed){
+  intake.move(speed);
+  intake2.move(-speed);
+}
+void  turn(int speed, int degrees, bool right) {
+  
+  if(right){
+  	
+  	chassis.set_turn_pid(-degrees, speed);
+  	chassis.wait_drive();
+  }
+  else{
+	chassis.set_turn_pid(degrees, speed);
+  	chassis.wait_drive();
+  }
+}
+void autonomousPath() {
+ 	moveForward(35, 100);
+	realease(100);
+	
+	pros::delay(500);
+	stopIntake();
+	moveBackward(15, 100);
+	turn(100, 165, true);
+	moveBackward(30, 100);
+
+  //moveForward(10,DRIVE_SPEED);
+  //moveBackward(10,DRIVE_SPEED);
+  /*turn(50, -45);
+  moveForward(40,DRIVE_SPEED);
+  grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
+  turn(DRIVE_SPEED,135);
+  moveForward(24,DRIVE_SPEED);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
+  //moveForward(10,DRIVE_SPEED);
+  moveBackward(10,DRIVE_SPEED);
+  turn(DRIVE_SPEED,180);
+  moveForward(40,DRIVE_SPEED);
+  grabBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
+  moveBackward(10,DRIVE_SPEED);
+  turn(DRIVE_SPEED,180);
+  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 40);*/
+
+
+}
 
 
 
@@ -102,16 +191,16 @@ void competition_initialize() {}
  * testing purposes.
  */
 void autonomous() {
-	Autonomous::selection=Autonomous::Select::left;
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+	//Autonomous::selection=Autonomous::Select::left;
+	//Wing::extendLeft(false);
+    //Wing::extendRight(false);
 
 	chassis.reset_pid_targets();				// Resets PID targets to 0.
 	chassis.reset_gyro();						// Resets gyro position to 0.
 	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);	// Set motors to hold. This helps autonomous consistency.
 
-	if 
+	/*if 
 	(Autonomous::selection==Autonomous::Select::left) 
 	{ Autonomous::left(); } 
 	else if 
@@ -119,6 +208,11 @@ void autonomous() {
 	{ Autonomous::right(); } 
 	else 
 	{ Autonomous::skills(); }
+
+	*/
+
+	
+	autonomousPath();
 
 }
 
@@ -215,7 +309,7 @@ void opcontrol() {
 
 		// autonomous
 		if ( newPress(A) ) {
-			autonomous();
+			autonomousPath();
 		}
 
 
