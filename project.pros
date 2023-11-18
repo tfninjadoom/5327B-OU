@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "A 1 Ball Auton",
+    "project_name": "11/17 Driver Control",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -310,8 +310,8 @@
     },
     "upload_options": {
       "icon": "clawbot",
-      "slot": 3,
-      "description": "Autonomous"
+      "slot": 1,
+      "description": "Driver Control"
     }
   }
 }
