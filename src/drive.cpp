@@ -41,15 +41,15 @@ namespace Drive1 {
 		int forward_vel = curveJoystick(stickCurve, forward_raw);
 		int turn_vel = curveJoystick(stickCurve, turn_raw);
 	
-		int left_vel = (forward_vel + turn_vel);
-		int right_vel = (forward_vel - turn_vel);
+		int left_vel = (forward_vel + turn_raw);
+		int right_vel = (forward_vel - turn_raw);
 
-		leftFront.move(-left_vel);
-		leftBack.move(-left_vel);
+		leftFront.move(left_vel);
+		leftBack.move(left_vel);
 		leftMid.move(left_vel);
 		rightFront.move(right_vel);
 		rightBack.move(right_vel);
-		rightMid.move(-right_vel);
+		rightMid.move(right_vel);
 	}
 
 	void singleStickDrive(StickCurve stickCurve) {
