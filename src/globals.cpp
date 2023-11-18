@@ -22,6 +22,7 @@ static const int
 INTAKE_PORTS[2] {20, 0};
 
 // V5 SENSOR PORTS
+
 const int
 IMU_PORT {1};
 static const int 
@@ -92,3 +93,12 @@ namespace Wing {
         rightWing.set_value(extendOrNot);
     }
     }  // namespace Wing
+/*void extendWings(bool extendOrNot) {
+    Wing::extendLeft(extendOrNot);
+    Wing::extendRight(extendOrNot);
+    leftWing.set_value(extendOrNot);
+    rightWing.set_value(extendOrNot);   
+    
+}*/
+
+//extern void extendWings(bool extendOrNot);
