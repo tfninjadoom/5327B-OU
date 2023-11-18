@@ -74,8 +74,8 @@ pros::GPS           gps(GPS_PORT);
 
 // Pneumatics
 // pros::ADIDigitalOut single-acting
-pros::ADIDigitalOut leftWing('A');
-pros::ADIDigitalOut rightWing('B');
+pros::ADIDigitalOut elevationWing('A');
+pros::ADIDigitalOut plowWings('B');
 // pros::ADIDigitalOut double-acting x6
 
 
@@ -83,22 +83,16 @@ pros::ADIDigitalOut rightWing('B');
 // OBJECT GROUPS
 
 namespace Wing {
-    bool left   { false };
-    bool right  { false };
+    bool wingsExtended { false };
+    bool elevated { false };
 
-    void extendLeft(bool extendOrNot) {
-        leftWing.set_value(extendOrNot);
+    void extendWings(bool extendOrNot) {
+        plowWings.set_value(extendOrNot);
+        wingsExtended = extendOrNot;
     }
-    void extendRight(bool extendOrNot) {
-        rightWing.set_value(extendOrNot);
+    void extendElevation(bool extendOrNot) {
+        elevationWing.set_value(extendOrNot);
+        elevated = extendOrNot;
     }
-    }  // namespace Wing
-/*void extendWings(bool extendOrNot) {
-    Wing::extendLeft(extendOrNot);
-    Wing::extendRight(extendOrNot);
-    leftWing.set_value(extendOrNot);
-    rightWing.set_value(extendOrNot);   
-    
-}*/
+}  // namespace Wing
 
-//extern void extendWings(bool extendOrNot);

@@ -15,32 +15,21 @@ using namespace Controller;
 
 const int DRIVE_SPEED = 100;
 int INTAKE_DURATION{5000}; // duration of intake before stopping
-int INTAKE_SPEED{150}; // for the speed of the intakezzz
-// Function to grab the ball
-void moveForward(double inches,int speed, bool wait=true) {
-  chassis.set_drive_pid(inches*2, speed);
-  if(wait){
-  	chassis.wait_drive();
-  }
-  else{
-	pros::delay(500);
-  
-  }
-  
-  //pros::delay(100);
-  //chassis.wait_drive();
-}
-void moveBackward(double inches, int speed, bool wait= 	true) {
-  chassis.set_drive_pid(-inches*2, speed);
-  if(wait){
-  	chassis.wait_drive();
-  }
-  else{
-	pros::delay(500);
-  
-  }
+int INTAKE_SPEED{150}; // for the speed of the intake
 
+
+void moveForward(double inches,int speed, bool wait=true) {
+	chassis.set_drive_pid(inches*2, speed);
+  
+	if (wait) { chassis.wait_drive(); }
 }
+
+void moveBackward(double inches, int speed, bool wait=true) {
+	chassis.set_drive_pid(-inches*2, speed);
+  
+	if (wait) { chassis.wait_drive(); }
+}
+
 // the move parameter is if moveing forward would help grab the ball for example if the ball if against a barrier, the same for realeing the ball
 void grabBall(int speed, int duration, bool move, int dis) {
   intake.move(speed);
@@ -54,85 +43,77 @@ void grabBall(int speed, int duration, bool move, int dis) {
 }
 
 void releaseBall(int speed, int duration,bool move, int dis) {
-  intake.move(-speed);
-  intake2.move(speed);
-  if(move){
-    moveForward(dis,DRIVE_SPEED, true);
-  }
-  pros::delay(duration);
-  intake.move(0);
-  intake2.move(0);
-}
-
-void stopIntake(){
+	intake.move(-speed);
+	if(move){
+		moveForward(dis,DRIVE_SPEED, true);
+	}
+	pros::delay(duration);
 	intake.move(0);
-  intake2.move(0);
 }
 
-void startintake(int speed){
-  intake.move(-speed);
-  intake2.move(speed);
+void intakeOn(int speed){
+	intake.move(-speed);
 }	
 
-void realease(int speed){
-  intake.move(speed);
-  intake2.move(-speed);
+void outtakeOn(int speed){
+	intake.move(speed);
 }
-void  turn(int speed, int degrees, bool right) {
+
+void intakeOff(){
+	intake.move(0);
+}
+
+void outtakeOff(){
+	intakeOff();
+}
+
+void turn(int speed, int degrees, bool right, bool wait=true) {
   
   if(right){
-  	
   	chassis.set_turn_pid(degrees, speed);
-  	chassis.wait_drive();
   }
   else{
 	chassis.set_turn_pid(-degrees, speed);
-  	chassis.wait_drive();
   }
 
+  if (wait) { chassis.wait_drive(); };
 }
-void swing(int speed, int degrees, bool right) {
+
+void swing(int speed, int degrees, bool right, bool wait=true) {
   
   if(right){
-  	
   	chassis.set_swing_pid(ez::RIGHT_SWING, degrees, speed);
-  	chassis.wait_drive();
   }
   else{
 	chassis.set_swing_pid(ez::LEFT_SWING, degrees, speed);
-  	chassis.wait_drive();
   }
+
+  if (wait) { chassis.wait_drive(); };
 }
 
-void extendWings(bool extendOrNot) {
-    //Wing::extendLeft(extendOrNot);
-    Wing::extendRight(extendOrNot);
-     
-    
-}
 void test(){
-	startintake(100);
+	intakeOn(100);
 	moveForward(5, 100);
 	
 	pros::delay(100);
-	stopIntake();
+	intakeOff();
 	moveBackward(42, 100);
 	turn(100, 180, true);
 	swing(100, 135, true);
 	moveForward(30, 127, false);
-	extendWings(true);
+	Wing::extendWings(true);
 	swing(100, 90, true);
 	//push
-	realease(127);
+	outtakeOn(127);
 	pros::delay(100);
 	moveForward(25, 127, false);
 	
 	moveBackward(15, 100, false);
 	moveForward(20, 127, false);
-	stopIntake();
+	intakeOff();
 	moveBackward(15, 100);
-	extendWings(false);
-	imu.reset(90);
+	Wing::extendWings(false);
+	chassis.set_angle(90);
 	//turn(100, 45, false);
 	//imu.set_heading(90);
 	//chassis.set_angle(15);
@@ -144,15 +125,15 @@ void test(){
 	
 	moveForward(75, 100);
 	pros::delay(100);
-	startintake(100);
+	intakeOn(100);
 
 	moveForward(5, 100);
 	pros::delay(100);
-	stopIntake();
+	intakeOff();
 	moveBackward(10, 100);
-	extendWings(true);
+	Wing::extendWings(true);
 	swing(100, 90, false);
-	realease(100);
+	outtakeOn(100);
 	moveForward(30, 127);
 	//moveForward(5, 100);
 	
@@ -160,43 +141,43 @@ void test(){
 }
 
 void fiveballAuton(){
-  startintake(127);
+  intakeOn(127);
   moveForward(7,100);
   //pros::delay(200);
-  stopIntake();
+  intakeOff();
   moveBackward(35, 100);
   turn(100, 180, true);
-  //extendboth(true);
+  //Wing::extendWings(true);
   moveForward(30, 100);
   turn(100, 155, true);
-  realease(INTAKE_SPEED);
+  outtakeOn(INTAKE_SPEED);
   moveForward(20, 100);
   turn(100, 10, true);
   moveForward(40, 120);
   moveBackward(20, 100);
   turn(100, 60, false);
 
-  //extendboth(false);
+  //Wing::extendWings(false);
   moveForward(40, 75);
   turn(100, 60, true);
-  startintake(100);
+  intakeOn(100);
   moveForward(30, 100);
-  stopIntake();
+  intakeOff();
   
   moveBackward(10, 75);
   /*turn(75, 75, false);
-  //extendboth(true);
+  //Wing::extendWings(true);
   moveForward(24, 75);
   turn(75, 90, true);
-  realease(INTAKE_SPEED);
+  outtakeOn(INTAKE_SPEED);
   moveForward(35, 125);
   pros::delay(300);
   moveBackward(15, 75);
   turn(75, 180, false);
-  startintake(INTAKE_SPEED);
+  intakeOn(INTAKE_SPEED);
   moveForward(40, 75);
   pros::delay(200);
-  stopIntake();
+  intakeOff();
   moveBackward(10, 75);
   turn(75, 180, false);
   moveForward(40, 125);
@@ -206,10 +187,10 @@ void fiveballAuton(){
 }
 void oneballAuton() {
  	moveForward(35, 100);
-	realease(100);
+	outtakeOn(100);
 	
 	pros::delay(500);
-	stopIntake();
+	intakeOff();
 	moveBackward(15, 100);
 	turn(100, 160, true);
 	moveBackward(35, 100);
@@ -274,8 +255,8 @@ void initialize() {
 	pros::delay(500); // Stop the user from doing anything while legacy ports configure
 
 	//--------Piston Starting States---------//
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+	Wing::extendWings(false);
+    Wing::extendElevation(false);
 
 	//--------Chassis Configuration---------//
 	//chassis.set_active_brake(0.1); 	// Sets active brake kP, recommended value 0.1.
@@ -295,8 +276,7 @@ void initialize() {
  */
 void disabled() {
 	//------------Pistons------------//
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+	Wing::extendWings(false);
 }
 
 /**
@@ -324,8 +304,8 @@ void competition_initialize() {}
  */
 void autonomous() {
 	//Autonomous::selection=Autonomous::Select::left;
-	//Wing::extendLeft(false);
-    //Wing::extendRight(false);
+	Wing::extendWings(false);
+    Wing::extendElevation(false);
 
 	chassis.reset_pid_targets();				// Resets PID targets to 0.
 	chassis.reset_gyro();						// Resets gyro position to 0.
@@ -366,8 +346,8 @@ void opcontrol() {
 
     int intakeMode { 0 };
 
-    Wing::extendLeft(false);
-    Wing::extendRight(false);
+    Wing::extendWings(false);
+    Wing::extendElevation(false);
 
 	//--------Chassis Reconfiguration---------//
 	//chassis.set_active_brake(0);
@@ -378,8 +358,6 @@ void opcontrol() {
 		//                 				(pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		//                 				(pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
-		// set drive brakes to coast
-		chassis.set_drive_brake(MOTOR_BRAKE_COAST);
         // drive modes
 		if (driveMode == DriveMode::tank) {
 			Drive1::tankDrive(stickCurve);
@@ -393,7 +371,7 @@ void opcontrol() {
         }
 
 
-        // intake buttons
+        // Intake
         if ( newPress(L1) ) {
 			if (intakeMode != 1) {
 				intake.move(110);
@@ -405,6 +383,7 @@ void opcontrol() {
 				intakeMode = 0;
 			}
 		}
+		// Outtake
 		if ( newPress(R1) ) {
 			if (intakeMode != -1) {
 				intake.move(-110);
@@ -418,23 +397,28 @@ void opcontrol() {
 		}
 
 
-        // Wing
+        // Wings (Plow)
         if ( newPress(L2) ) {
-			if (Wing::left != true) {
-				Wing::extendLeft(true);
-				Wing::left = true;
+			if (Wing::wingsExtended != true) {
+				Wing::extendWings(true);
+				Wing::wingsExtended = true;
 			} else {
-				Wing::extendLeft(false);
-				Wing::left = false;
+				Wing::extendWings(false);
+				Wing::wingsExtended = false;
 			}
 		}
 		if ( newPress(R2) ) {
-			if (Wing::right != true) {
-				Wing::extendRight(true);
-				Wing::right = true;
+			// MACRO GOES HERE IN THE FUTURE
+		}
+
+		// Elevation Wing
+		if ( newPress(RIGHT) ) {
+			if (Wing::elevated != true) {
+				Wing::extendElevation(true);
+				Wing::elevated = true;
 			} else {
-				Wing::extendRight(false);
-				Wing::right = false;
+				Wing::extendElevation(false);
+				Wing::elevated = false;
 			}
 		}
 

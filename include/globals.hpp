@@ -55,9 +55,9 @@ extern pros::GPS gps;
 // extern pros::ADIDigitalOut double-acting
 
 namespace Wing {
-    extern bool left;
-    extern bool right;
+    extern bool wingsExtended;
+    extern bool elevated;
 
-    void extendLeft(bool extendOrNot);
-    void extendRight(bool extendOrNot);
+    void extendWings(bool extendOrNot);
+    void extendElevation(bool extendOrNot);
 } //namespace Wing
