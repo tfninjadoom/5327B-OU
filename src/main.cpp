@@ -217,6 +217,19 @@ void oneballAuton() {
 }
 
 
+void AWP(){
+
+	extendWings(true);
+	moveForward(20, 100);
+	turn(100, 70, true);
+	moveForward(20, 100);
+	turn(100, 25, true);
+	moveForward(10, 100);
+	turn(100,45, true);
+	moveForward(30, 100);
+
+}
+
 
 
 
@@ -323,8 +336,8 @@ void autonomous() {
 	{ Autonomous::skills(); }
 
 	*/
-
-	fiveBallAuton();
+	AWP();
+	//fiveBallAuton();
 }
 
 
