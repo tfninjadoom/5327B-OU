@@ -67,7 +67,7 @@ void outtakeOff(){
 	intakeOff();
 }
 
-void turn(int speed, int degrees, bool right, bool wait=true) {
+void turn(int speed, int degrees, bool left, bool wait=true) {
   
   if(right){
   	chassis.set_turn_pid(degrees, speed);
@@ -79,7 +79,7 @@ void turn(int speed, int degrees, bool right, bool wait=true) {
   if (wait) { chassis.wait_drive(); };
 }
 
-void swing(int speed, int degrees, bool right, bool wait=true) {
+void swing(int speed, int degrees, bool left, bool wait=true) {
   
   if(right){
   	chassis.set_swing_pid(ez::RIGHT_SWING, degrees, speed);
@@ -219,21 +219,54 @@ void oneballAuton() {
 
 void AWP(){
 
-	extendWings(true);
-	moveForward(20, 100);
-	turn(100, 70, true);
-	moveForward(20, 100);
-	turn(100, 25, true);
-	moveForward(10, 100);
-	turn(100,45, true);
-	moveForward(30, 100);
+	moveBackward(45, 100);
+	turn(100, 180, false);
+	swing(100, 135, false);
+	Wing::extendWings(true);
+	moveForward(18, 127);
+	swing(100, 90, false);
+	turn(100, 45, false);
+	moveForward(65, 40);
 
 }
 
 
 
 
+void skills(){
+	//turn intake on for match loading
+	intakeOn(20000);
+	//extend wings to push balls
+	Wing::extendWings(true);
+	//turn off intake to push balls forward
+	intakeOff();
+	// move forward to push balls forward
+	moveForward(100, 100);
+	//turn to push balls into the goal
+	turn(100, 45, true);
+	//move forward to push the balls into the goal
+	moveForward(35, 120);
+	//close the wings so they don't et stuck when moving backwarda
+	Wing::extendWings(false);	
+	// move backwards to prepare to move back
 
+	moveBackward(35, 100);
+	//turn the opacite direction as before to reposition the robot
+	turn(100,  45, false );
+	//move backwards to get back to the starting position
+	moveBackward(100, 100);
+	// restart the process
+	intakeOn(20000);
+	Wing::extendWings(true);
+	moveForward(100, 100);
+	turn(100, 45, true);
+	moveForward(35, 120);
+	Wing::extendWings(false);
+	moveBackward(35, 100);
+	turn(100, 180, false);
+	moveBackward(100, 100);
+
+}
 
 
 
