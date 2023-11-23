@@ -16,7 +16,7 @@
 const int 
 LEFT_DRIVE_PORTS[3] {11, 12, 13};
 const int 
-RIGHT_DRIVE_PORTS[3] {14, 15, 16};
+RIGHT_DRIVE_PORTS[3] {14, 15, 17};
 
 static const int
 INTAKE_PORTS[2] {20, 0};

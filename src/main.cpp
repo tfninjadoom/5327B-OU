@@ -75,9 +75,9 @@ void outtakeOff(){
 	intakeOff();
 }
 
-void turn(int speed, int degrees, bool right, bool wait=true) {
+void turn(int speed, int degrees, bool left, bool wait=true) {
   
-  if(right){
+  if(left){
   	chassis.set_turn_pid(degrees, speed);
   }
   else{
@@ -87,9 +87,9 @@ void turn(int speed, int degrees, bool right, bool wait=true) {
   if (wait) { chassis.wait_drive(); };
 }
 
-void swing(int speed, int degrees, bool right, bool wait=true) {
+void swing(int speed, int degrees, bool left, bool wait=true) {
   
-  if(right){
+  if(left){
   	chassis.set_swing_pid(ez::RIGHT_SWING, degrees, speed);
   }
   else{
