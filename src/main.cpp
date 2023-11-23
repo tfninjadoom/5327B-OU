@@ -18,16 +18,24 @@ int INTAKE_DURATION{5000}; // duration of intake before stopping
 int INTAKE_SPEED{150}; // for the speed of the intake
 
 
-void moveForward(double inches,int speed, bool wait=true) {
+void moveForward(double inches,int speed, bool wait=true, int wt= 500) {
 	chassis.set_drive_pid(inches*2, speed);
   
 	if (wait) { chassis.wait_drive(); }
-}
 
-void moveBackward(double inches, int speed, bool wait=true) {
+	else{ pros::delay(wt);}
+
+}
+	
+
+void moveBackward(double inches, int speed, int wt = 500, bool wait=true ) {
 	chassis.set_drive_pid(-inches*2, speed);
   
 	if (wait) { chassis.wait_drive(); }
+
+	else{
+	pros::delay(wt);
+}
 }
 
 // the move parameter is if moveing forward would help grab the ball for example if the ball if against a barrier, the same for realeing the ball
@@ -94,8 +102,8 @@ void swing(int speed, int degrees, bool right, bool wait=true) {
 void fiveBallAuton(){
 	// grab triball under elevation bar
 	intakeOn(100);
-	moveForward(5, 100);
-	pros::delay(100);
+	moveForward(5, 100, false, 200);
+	//pros::delay(100);
 	intakeOff();
 
 	// move to goal
@@ -109,11 +117,11 @@ void fiveBallAuton(){
 	// push
 	outtakeOn(127);
 	moveForward(25, 127, false);
-	pros::delay(500);
+	//pros::delay(500);
 	moveBackward(15, 100, false);
-	pros::delay(500);
+	//pros::delay(500);
 	moveForward(20, 127, false);
-	pros::delay(500);
+	//pros::delay(500);
 	intakeOff();
 	pros::delay(100);
 
@@ -125,10 +133,10 @@ void fiveBallAuton(){
 	
 	// move toward middle ball 1
 	moveForward(75, 100);
-	pros::delay(100);
+	//pros::delay(100);
 	intakeOn(100);
-	moveForward(5, 100, false);
-	pros::delay(500);
+	moveForward(5, 100, false );
+	//pros::delay(500);
 	intakeOff();
 	
 	// clockwise swing scoop to score 3 triballs
@@ -137,7 +145,7 @@ void fiveBallAuton(){
 	swing(100, 180, false);
 	outtakeOn(100);
 	moveForward(100, 127, false);
-	pros::delay(500);
+	//pros::delay(500);
 	moveBackward(100, 10);
 }
 
@@ -186,54 +194,140 @@ void unused_fiveBallAuton(){
   moveBackward(10, 75);
   */
 }
-void oneballAuton() {
- 	moveForward(35, 100);
-	outtakeOn(100);
+
+void fiveballautonv2(){
+
 	
-	pros::delay(500);
+
+intakeOn(100);
+	moveForward(5, 100, false, 200);
+	//pros::delay(100);
 	intakeOff();
+
+	// move to goal
+	moveBackward(55, 100);
+	turn(100, 180, true);
+	swing(100, 135, true);
+	Wing::extendWings(true);
+	moveForward(18, 127);
+	swing(100, 90, true);
+	
+	// push
+	outtakeOn(127);
+	moveForward(25, 127, false);
+	//pros::delay(500);
+	//moveBackward(15, 100, false);
+	//pros::delay(500);
+	//turn(100, 180, true);
+
+	moveBackward(20, 127, false);
+	moveForward(20, 100);
+	//turn(100, 180, true);
+	//pros::delay(500);
+	intakeOff();
+	pros::delay(100);
+
+	// turn toward middle ball 1
 	moveBackward(15, 100);
-	turn(100, 160, true);
-	moveBackward(35, 100);
-
-  //moveForward(10,DRIVE_SPEED);
-  //moveBackward(10,DRIVE_SPEED);
-  /*turn(50, -45);
-  moveForward(40,DRIVE_SPEED);
-  grabBall(INTAKE_SPEED, INTAKE_DURATION, false, 0);
-  turn(DRIVE_SPEED,135);
-  moveForward(24,DRIVE_SPEED);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
-  //moveForward(10,DRIVE_SPEED);
-  moveBackward(10,DRIVE_SPEED);
-  turn(DRIVE_SPEED,180);
-  moveForward(40,DRIVE_SPEED);
-  grabBall(INTAKE_SPEED, INTAKE_DURATION, true, 10);
-  moveBackward(10,DRIVE_SPEED);
-  turn(DRIVE_SPEED,180);
-  releaseBall(INTAKE_SPEED, INTAKE_DURATION, true, 40);*/
-
-
+	Wing::extendWings(false);
+	chassis.set_angle(90);
+	turn(100, 19, true);
+	
+	// move toward middle ball 1
+	moveForward(75, 100);
+	//pros::delay(100);
+	intakeOn(100);
+	moveForward(5, 100, false );
+	//pros::delay(500);
+	intakeOff();
+	
+	// clockwise swing scoop to score 3 triballs
+	moveBackward(10, 100);
+	Wing::extendWings(true);
+	swing(100, 180, false);
+	outtakeOn(100);
+	moveForward(100, 127, false);
+	//pros::delay(500);
+	moveBackward(100, 10);
 }
 
 
-void AWP(){
+void skills(){
 
-	extendWings(true);
-	moveForward(20, 100);
-	turn(100, 70, true);
-	moveForward(20, 100);
-	turn(100, 25, true);
+	intakeOn(120);
+	pros::delay(12000);
+	outtakeOff();
+	moveForward(130, 120, false, 2000);
+	//swing(127, 45, true);
+	turn(70, 50, false);
+	Wing::extendWings(true);
+	moveForward(40, 127, false, 600);
+	//moveBackward(20, 100, false, 750);
+	//turn(100, 30, true, false);
+	//moveForward(25, 120, false, 500);
+	moveBackward(15, 127, false, 600);
+	Wing::extendWings(false);
+	imu.reset();
+	turn(100, 195, false);
+	moveBackward(30, 127, false, 760);
 	moveForward(10, 100);
-	turn(100,45, true);
-	moveForward(30, 100);
+	imu.reset();
+	turn(100, 195, true);
+	
+	//outtakeOff();
+	moveBackward(45, 100, false, 500);
+	imu.reset();
+	turn(100,55, true);
+	moveBackward(108, 85, false, 1500);
+	//turn(100, 10, false);
+	intakeOn(120);
+	pros::delay(12000);
+	outtakeOff();
+	//outtakeOff();
+	moveForward(135, 127, false, 2500);
+	//swing(127, 45, true);
+	turn(120, 60, false);
+	Wing::extendWings(true);
+	moveForward(40, 127, false, 500);
+	//moveBackward(20, 100, false, 750);
+	//moveForward(25, 120, false, 500);
+	moveBackward(15, 127, false, 750);
+	Wing::extendWings(false);
+	imu.reset();
+	turn(100, 195, true);
+	moveBackward(30, 127, false, 750);
+	moveForward(10, 100);
+	imu.reset();
+	turn(100, 195, false);
+	
+	//outtakeOff();
+	moveBackward(45, 100);
+	imu.reset();
+	turn(100, 55, true);
+	moveBackward(120, 85);
 
+	intakeOff();
 }
 
+void skillsv2(){
+	intakeOn(50);
+	pros::delay(14000);
+	outtakeOff();
+	turn(50, 20, false);
+	//Wing::extendWings(true);
+	moveForward(10, 50);
+	Wing::extendWings(false);
+	//swing(127, 45, true);
+	imu.reset();
+	turn(50, 20, true);
+	moveBackward(10, 50);
+	
+	intakeOn(50);
+	pros::delay(1000);
+	outtakeOff();
+	
 
-
-
-
+}
 
 
 
@@ -336,7 +430,12 @@ void autonomous() {
 	{ Autonomous::skills(); }
 
 	*/
-	AWP();
+	//skillsv2();
+	fiveballautonv2();
+	//skills();
+	//AWP();
+	//oneballAuton();
+	//AWPtwo();
 	//fiveBallAuton();
 }
 

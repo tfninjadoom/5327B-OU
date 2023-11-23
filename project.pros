@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "AWP-V1",
+    "project_name": "5ball auton2",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,9 +309,9 @@
       }
     },
     "upload_options": {
-      "icon": "pros",
-      "slot": 4,
-      "description": "AWP"
+      "icon": "ufo",
+      "slot": 6,
+      "description": ""
     }
   }
 }
