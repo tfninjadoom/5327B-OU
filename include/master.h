@@ -55,7 +55,7 @@
 #include "EZ-Template/api.hpp"
 #include "autons/chassis.hpp"
 #include "autons/path_1_movement.hpp"
-
+#include "lemlib/api.hpp"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

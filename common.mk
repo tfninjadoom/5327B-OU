@@ -4,6 +4,9 @@ DEVICE=VEX EDR V5
 MFLAGS=-mcpu=cortex-a9 -mfpu=neon-fp16 -mfloat-abi=softfp -Os -g
 CPPFLAGS=-D_POSIX_THREADS -D_UNIX98_THREAD_MUTEX_ATTRIBUTES -D_POSIX_TIMERS -D_POSIX_MONOTONIC_CLOCK
 GCCFLAGS=-ffunction-sections -fdata-sections -fdiagnostics-color -funwind-tables
+CFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=gnu11
+CXXFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=gnu++17
+
 
 WARNFLAGS+=-Wno-psabi
 
@@ -182,7 +185,7 @@ clean:
 
 ifeq ($(IS_LIBRARY),1)
 ifeq ($(LIBNAME),libbest)
-$(errror "You should rename your library! libbest is the default library name and should be changed")
+$(error "You should rename your library! libbest is the default library name and should be changed")
 endif
 
 LIBAR=$(BINDIR)/$(LIBNAME).a

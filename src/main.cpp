@@ -7,6 +7,7 @@
  * disabled(), and opcontrol() functions.
  */
 #include "master.h"
+
 using namespace Controller;
 // autonumous sections: 
 
@@ -419,6 +420,8 @@ void autonomous() {
 	chassis.reset_gyro();						// Resets gyro position to 0.
 	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);	// Set motors to hold. This helps autonomous consistency.
+	
+
 
 	/*if 
 	(Autonomous::selection==Autonomous::Select::left) 
