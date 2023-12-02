@@ -31,14 +31,14 @@ void initialize() {
 	
 	// displays stuff on the brain screen
 	pros::lcd::initialize();
-        pros::lcd::set_text(1, "StickCurve::strong");
+        pros::lcd::set_text(1, "StickCurve::old");
         pros::lcd::set_text(2, "DriveMode::arcade");
         // pros::lcd::register_btn1_cb(on_center_button);
 
 
 	//--------Piston Starting States---------//
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+	Wing::extendWings(false);
+    Wing::extendElevation(false);
 }
 
 /**
@@ -51,8 +51,7 @@ void initialize() {
  */
 void disabled() {
 	//------------Pistons------------//
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+	Wing::extendWings(false);
 }
 
 /**
@@ -80,8 +79,8 @@ void competition_initialize() {}
  */
 void autonomous() {
 	
-	Wing::extendLeft(false);
-    Wing::extendRight(false);
+    Wing::extendWings(false);
+    Wing::extendElevation(false);
 
 	if 
 	(Autonomous::selection==Autonomous::Select::left) 
@@ -108,12 +107,12 @@ void opcontrol() {
 
 	DriveMode driveMode { DriveMode::arcade };
 
-	StickCurve stickCurve { StickCurve::strong };
+	StickCurve stickCurveMode { StickCurve::old };
 
     int intakeMode { 0 };
 
-    Wing::extendLeft(false);
-    Wing::extendRight(false);
+    Wing::extendWings(false);
+    Wing::extendElevation(false);
 
 	while (true) {
 		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -123,18 +122,18 @@ void opcontrol() {
 
         // drive modes
 		if (driveMode == DriveMode::tank) {
-			Drive::tankDrive(stickCurve);
+			Drive::tankDrive(stickCurveMode);
             pros::lcd::set_text(2, "DriveMode::tank");
         } else if (driveMode == DriveMode::arcade) {
-			Drive::arcadeDrive(stickCurve);
+			Drive::arcadeDrive(stickCurveMode);
             pros::lcd::set_text(2, "DriveMode::arcade");
         } else if (driveMode == DriveMode::singleStick) {
-			Drive::singleStickDrive(stickCurve);
+			Drive::singleStickDrive(stickCurveMode);
             pros::lcd::set_text(2, "DriveMode::singleStick");
         }
 
 
-        // intake buttons
+        // Intake
         if ( newPress(L1) ) {
 			if (intakeMode != 1) {
 				intake.move(110);
@@ -146,6 +145,7 @@ void opcontrol() {
 				intakeMode = 0;
 			}
 		}
+		// Outtake
 		if ( newPress(R1) ) {
 			if (intakeMode != -1) {
 				intake.move(-110);
@@ -159,23 +159,29 @@ void opcontrol() {
 		}
 
 
-        // Wing
+        // Wings (Plow)
         if ( newPress(L2) ) {
-			if (Wing::left != true) {
-				Wing::extendLeft(true);
-				Wing::left = true;
+			if (Wing::wingsExtended != true) {
+				Wing::extendWings(true);
+				Wing::wingsExtended = true;
 			} else {
-				Wing::extendLeft(false);
-				Wing::left = false;
+				Wing::extendWings(false);
+				Wing::wingsExtended = false;
 			}
 		}
 		if ( newPress(R2) ) {
-			if (Wing::right != true) {
-				Wing::extendRight(true);
-				Wing::right = true;
+			// MACRO GOES HERE IN THE FUTURE
+		}
+
+
+		// Elevation Wing
+		if ( newPress(RIGHT) ) {
+			if (Wing::elevated != true) {
+				Wing::extendElevation(true);
+				Wing::elevated = true;
 			} else {
-				Wing::extendRight(false);
-				Wing::right = false;
+				Wing::extendElevation(false);
+				Wing::elevated = false;
 			}
 		}
 
@@ -188,12 +194,15 @@ void opcontrol() {
 
         // slow drive
         if ( newPress(B) ) {
-            if ( stickCurve != StickCurve::slow ) {
-                stickCurve = StickCurve::slow;
+            if ( stickCurveMode == StickCurve::latest ) {
+                stickCurveMode = StickCurve::slow;
                 pros::lcd::set_text(1, "StickCurve::slow");
-            } else if ( stickCurve == StickCurve::slow ) {
-                stickCurve = StickCurve::strong;
-                pros::lcd::set_text(1, "StickCurve::strong");
+            } else if ( stickCurveMode == StickCurve::slow ) {
+                stickCurveMode = StickCurve::old;
+                pros::lcd::set_text(1, "StickCurve::old");
+            } else if ( stickCurveMode == StickCurve::old ) {
+                stickCurveMode = StickCurve::latest;
+                pros::lcd::set_text(1, "StickCurve::latest");
             }
         }
 

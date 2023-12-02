@@ -20,8 +20,8 @@ enum class DriveMode {
 
 // finite set of stick curves
 enum class StickCurve {
-	strong,
-	weak,
+	old,
+	latest,
 	slow,
 }; //enum StickCurve
 

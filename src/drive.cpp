@@ -15,20 +15,32 @@ namespace Drive {
 	 * graph of strong(red) and weak(blue) curves from 5225A here:
  	 * https://www.desmos.com/calculator/sdcgzah5ya
 	 */
-	int curveJoystick(StickCurve stickCurve, int input, double t = 20.) {
+	int curveJoystick(StickCurve stickCurve, int input, double t = 0.5) {
 		int val = 0;
 
-		if (stickCurve == StickCurve::strong) {
+		if (stickCurve == StickCurve::slow) { val = input / 3; } 
+		
+		else if (stickCurve == StickCurve::old) {
+		
 			val = (std::exp(-t / 10)
 					+ std::exp((std::abs(input) - 127) / 10)
 					* (1 - std::exp(-t / 10))) * input;
 
-		} else if (stickCurve == StickCurve::weak) {
-			val = std::exp(((std::abs(input) - 127) * t) / 1000) * input;
+		} 
+		else if (stickCurve == StickCurve::latest) {
+		
+			if (t > 0) {
+			
+				val = std::exp(((std::abs(input) - 127) * t) / 1000) * input;
+			
+			}
+			else if (t < 0) {
 
-		} else if (stickCurve == StickCurve::slow) {
-			val = input / 3;
-		}
+
+
+			}
+			else { val = 0; };
+		};
 		
 		return val;
 	}
