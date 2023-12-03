@@ -78,6 +78,9 @@ pros::ADIDigitalOut leftWing('A');
 pros::ADIDigitalOut rightWing('B');
 // pros::ADIDigitalOut double-acting x6
 
+extern pros::MotorGroup leftDrive;
+extern pros::MotorGroup rightDrive;
+extern pros::IMU imu;
 
 //----------------------------------------------------------------------------
 // OBJECT GROUPS

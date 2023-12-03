@@ -55,3 +55,4 @@ namespace Wing {
     void extendLeft(bool extendOrNot);
     void extendRight(bool extendOrNot);
 } //namespace Wing
+

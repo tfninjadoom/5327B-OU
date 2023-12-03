@@ -9,6 +9,15 @@
 #include "master.h"
 using namespace Controller;
 
+
+void lemlib_auton(){
+
+	lemlib::lemlibR.moveTo(-44, 62, 500, 150);
+	lemlib::lemlibR.turnTo(-55, 34, 500, 150);
+}
+
+
+
 /**
  * A (boilerplate) callback function for LLEMU's center button.
  *
@@ -82,7 +91,7 @@ void autonomous() {
 	
 	Wing::extendLeft(false);
     Wing::extendRight(false);
-
+	
 	if 
 	(Autonomous::selection==Autonomous::Select::left) 
 	{ Autonomous::left(); } 
@@ -91,6 +100,8 @@ void autonomous() {
 	{ Autonomous::right(); } 
 	else 
 	{ Autonomous::skills(); }
+
+
 
 }
 
