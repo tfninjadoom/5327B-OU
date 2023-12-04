@@ -101,7 +101,7 @@ void autonomous() {
 	else 
 	{ Autonomous::skills(); }
 
-
+lemlib_auton();
 
 }
 
