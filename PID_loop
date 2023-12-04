@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>   // for std::rand
+
+// PID Controller Class
+class PID {
+private:
+    double kP, kI, kD;
+    double integral = 0;
+    double prevError = 0;
+
+public:
+    PID(double kP, double kI, double kD) : kP(kP), kI(kI), kD(kD) {}
+
+    double calculate(double setpoint, double actual) {
+        double error = setpoint - actual;
+        integral += error;
+        double derivative = error - prevError;
+
+        double output = kP * error + kI * integral + kD * derivative;
+        prevError = error;
+        return output;
+    }
+};
+
+int main() {
+    
+    PID pidController(0.5, 0.01, 0.5); // PID values I found produce the best results. 
+    std::vector<double> wheelInputs = {50, 50, 50, 50}; // Initial input values
+    std::vector<double> wheelOutputs = {30, 38, 49, 51}; // Initial output values
+    double setpoint = 50; // Desired power output
+    double batteryPercentage = 100; // Starting battery percentage
+
+    for (int i = 0; i < 50; i++) {
+        // Adjust input values based on PID controller
+        for (size_t j = 0; j < wheelInputs.size(); j++) {
+            double adjustment = pidController.calculate(setpoint, wheelOutputs[j]);
+            wheelInputs[j] += adjustment;
+
+            // Update output values proportionally to the input values
+            wheelOutputs[j] = wheelInputs[j];
+
+            // Add randomness to output to mimik conditions this can be removed later on it it just here to testout the code and moke sure it can work around randoms. 
+            wheelOutputs[j] += (std::rand() % 3 - 1); // Random value between -1 and 1
+
+            // Decrease output based on battery percentage, battery presentage is included to add a constant rate of change to the outputs. this can be removed later on but I added it here to show that the program can acount for constant rates of change
+            wheelOutputs[j] -= (100 - batteryPercentage) * 0.02; // Decrease output by 2% for every 5% battery drop
+        }
+
+        // Print the values for this loop iteration
+        batteryPercentage -= 1.5;
+        std::cout << "Loop " << i + 1 << ":\n";
+        std::cout << "Battery Percentage: " << batteryPercentage << "%\n";
+        for (size_t j = 0; j < wheelInputs.size(); j++) {
+            std::cout << "Wheel " << j + 1 << " - Input: " << wheelInputs[j] << ", Output: " << wheelOutputs[j] << "\n";
+        }
+        std::cout << "-----------------------------\n";
+    }
+
+    return 0;
+}

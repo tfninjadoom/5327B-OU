@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>   // for std::rand
+
+// PID Controller Class
+class PID {
+private:
+    double kP, kI, kD;
+    double prevError = 0;
+    double integral = 0;
+
+public:
+    PID(double kP, double kI, double kD) : kP(kP), kI(kI), kD(kD) {}
+
+    double calculate(double setpoint, double actual) {
+        double error = setpoint - actual;
+        integral += error;
+        double derivative = error - prevError;
+
+        double output = kP * error + kI * integral + kD * derivative;
+        prevError = error;
+        return output;
+    }
+};
+
+int main() {
+    // Example usage for multiple wheels
+    PID pidController(0.1, 0.01, 0.5); // Example PID constants
+    std::vector<double> wheelInputs = {50, 50, 50, 50}; // Initial input values
+    std::vector<double> wheelOutputs = {30, 38, 49, 51}; // Initial output values
+    double setpoint = 50; // Desired power output
+    double batteryPercentage = 100; // Starting battery percentage
+
+    for (int i = 0; i < 50; i++) {
+        // Adjust input values based on PID controller
+        for (size_t j = 0; j < wheelInputs.size(); j++) {
+            double adjustment = pidController.calculate(setpoint, wheelOutputs[j]);
+            wheelInputs[j] += adjustment;
+
+            // Update output values proportionally (for this example, output is directly proportional to input)
+            wheelOutputs[j] = wheelInputs[j];
+
+            // Add randomness to output
+            wheelOutputs[j] += (std::rand() % 3 - 1); // Random value between -1 and 1
+
+            // Decrease output based on battery percentage
+            wheelOutputs[j] -= (100 - batteryPercentage) * 0.02; // Decrease output by 2% for every 5% battery drop
+        }
+
+        // Print the values for this loop iteration
+        batteryPercentage -= 1.5;
+        std::cout << "Loop " << i + 1 << ":\n";
+        std::cout << "Battery Percentage: " << batteryPercentage << "%\n";
+        for (size_t j = 0; j < wheelInputs.size(); j++) {
+            std::cout << "Wheel " << j + 1 << " - Input: " << wheelInputs[j] << ", Output: " << wheelOutputs[j] << "\n";
+        }
+        std::cout << "-----------------------------\n";
+    }
+
+    return 0;
+}
