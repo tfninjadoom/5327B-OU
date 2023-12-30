@@ -45,6 +45,17 @@ namespace Drive {
 		return val;
 	}
 
+	void motorInputs(int leftInput, int rightInput) {
+		
+		leftFront.move(-leftInput);
+		leftBack.move(-leftInput);
+		leftMid.move(-leftInput);
+
+		rightFront.move(rightInput);
+		rightBack.move(rightInput);
+		rightMid.move(rightInput);
+
+	}
 
 	void arcadeDrive(StickCurve stickCurve) {
 		int forward_raw = controller.get_analog(ANALOG_LEFT_Y);
@@ -56,12 +67,7 @@ namespace Drive {
 		int left_vel = (forward_vel + turn_vel);
 		int right_vel = (forward_vel - turn_vel);
 
-		leftFront.move(-left_vel);
-		leftBack.move(-left_vel);
-		leftMid.move(left_vel);
-		rightFront.move(right_vel);
-		rightBack.move(right_vel);
-		rightMid.move(-right_vel);
+		motorInputs(left_vel, right_vel);
 	}
 
 	void singleStickDrive(StickCurve stickCurve) {
@@ -74,12 +80,7 @@ namespace Drive {
 		int left_vel = (forward_vel + turn_vel);
 		int right_vel = (forward_vel - turn_vel);
 
-		leftFront.move(-left_vel);
-		leftBack.move(-left_vel);
-		leftMid.move(left_vel);
-		rightFront.move(right_vel);
-		rightBack.move(right_vel);
-		rightMid.move(-right_vel);
+		motorInputs(left_vel, right_vel);
 	}
 
 	void tankDrive(StickCurve stickCurve) {
@@ -89,12 +90,8 @@ namespace Drive {
 		int left_vel = curveJoystick(stickCurve, left_raw);
 		int right_vel = curveJoystick(stickCurve, right_raw);
 
-		leftFront.move(-left_raw);
-		leftBack.move(-left_raw);
-		leftMid.move(left_raw);
-		rightFront.move(right_raw);
-		rightBack.move(right_raw);
-		rightMid.move(-right_raw);
+		motorInputs(left_raw, right_raw);
 	}
+
 
 } // namespace drive
