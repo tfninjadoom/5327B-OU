@@ -13,26 +13,26 @@
 #define DRIVE_GEARSET pros::E_MOTOR_GEARSET_06
 
 // MOTOR PORTS
-static const int 
+const int 
 LEFT_DRIVE_PORTS[3] {11, 12, 13};
-static const int 
+const int 
 RIGHT_DRIVE_PORTS[3] {14, 15, 17};
 
-static const int
+const int
 INTAKE_PORTS[2] {20, 0};
 
 // V5 SENSOR PORTS
-static const int
+const int
 IMU_PORT {1};
-static const int 
+const int 
 VISION_PORT {0};
-static const int 
+const int 
 DISTANCE_PORT {0};
-static const int 
+const int 
 OPTICAL_PORT {0};
-static const int 
+const int 
 ROTATION_PORTS[3] {17, 18, 19};
-static const int 
+const int 
 GPS_PORT {0};
 
 //----------------------------------------------------------------------------
