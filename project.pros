@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "11/26 Driver Control",
+    "project_name": "Proto Driver Control",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,9 +309,9 @@
       }
     },
     "upload_options": {
-      "icon": "clawbot",
+      "icon": "power",
       "description": "Driver Control",
-      "slot": 1
+      "slot": 2
     }
   }
 }

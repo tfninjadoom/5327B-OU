@@ -14,7 +14,7 @@
 
 // MOTOR PORTS
 const int 
-LEFT_DRIVE_PORTS[3] {11, 12, 13};
+LEFT_DRIVE_PORTS[3] {4, 5, 7};
 const int 
 RIGHT_DRIVE_PORTS[3] {14, 15, 17};
 
