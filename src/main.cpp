@@ -18,6 +18,9 @@ int INTAKE_DURATION{5000}; // duration of intake before stopping
 int INTAKE_SPEED{150}; // for the speed of the intake
 
 
+
+
+
 void moveForward(double inches,int speed, bool wait=true, int wt= 500) {
 	chassis.set_drive_pid(inches*2, speed);
   
@@ -73,6 +76,11 @@ void intakeOff(){
 
 void outtakeOff(){
 	intakeOff();
+}
+
+
+void extend(bool elevation){
+	Wing::extendElevation(true);
 }
 
 void turn(int speed, int degrees, bool left, bool wait=true) {
@@ -148,6 +156,27 @@ void fiveBallAuton(){
 	//pros::delay(500);
 	moveBackward(100, 10);
 }
+void awp_far(){
+	moveBackward(35, 100);
+	turn(100, 80, true);
+	Wing::extendWings(true);
+	moveBackward(20, 127);
+	Wing::extendWings(false);
+	moveForward(20, 100);
+	turn(100, 80, false);
+	Wing::extendElevation(true);
+	moveForward(40, 100);
+
+}
+void awp_close(){
+	Wing::extendWings(true);
+	moveBackward(25, 127);
+	Wing::extendWings(false);
+	moveForward(20, 100);
+	turn(100, 60, false);
+	Wing::extendElevation(true);
+	moveForward(40, 100);
+}
 
 void unused_fiveBallAuton(){
   intakeOn(127);
@@ -199,7 +228,7 @@ void fiveballautonv2(){
 
 	
 
-intakeOn(100);
+	intakeOn(100);
 	moveForward(5, 100, false, 200);
 	//pros::delay(100);
 	intakeOff();
@@ -254,59 +283,7 @@ intakeOn(100);
 
 void skills(){
 
-	intakeOn(120);
-	pros::delay(12000);
-	outtakeOff();
-	moveForward(130, 120, false, 2000);
-	//swing(127, 45, true);
-	turn(70, 50, false);
-	Wing::extendWings(true);
-	moveForward(40, 127, false, 600);
-	//moveBackward(20, 100, false, 750);
-	//turn(100, 30, true, false);
-	//moveForward(25, 120, false, 500);
-	moveBackward(15, 127, false, 600);
-	Wing::extendWings(false);
-	imu.reset();
-	turn(100, 195, false);
-	moveBackward(30, 127, false, 760);
-	moveForward(10, 100);
-	imu.reset();
-	turn(100, 195, true);
 	
-	//outtakeOff();
-	moveBackward(45, 100, false, 500);
-	imu.reset();
-	turn(100,55, true);
-	moveBackward(108, 85, false, 1500);
-	//turn(100, 10, false);
-	intakeOn(120);
-	pros::delay(12000);
-	outtakeOff();
-	//outtakeOff();
-	moveForward(135, 127, false, 2500);
-	//swing(127, 45, true);
-	turn(120, 60, false);
-	Wing::extendWings(true);
-	moveForward(40, 127, false, 500);
-	//moveBackward(20, 100, false, 750);
-	//moveForward(25, 120, false, 500);
-	moveBackward(15, 127, false, 750);
-	Wing::extendWings(false);
-	imu.reset();
-	turn(100, 195, true);
-	moveBackward(30, 127, false, 750);
-	moveForward(10, 100);
-	imu.reset();
-	turn(100, 195, false);
-	
-	//outtakeOff();
-	moveBackward(45, 100);
-	imu.reset();
-	turn(100, 55, true);
-	moveBackward(120, 85);
-
-	intakeOff();
 }
 
 void skillsv2(){
@@ -352,8 +329,6 @@ void on_center_button() {
 
 
 void initialize() {
-
-
 	// displays stuff on the brain screen
 	pros::lcd::initialize();
         pros::lcd::set_text(1, "StickCurve::strong");
@@ -414,12 +389,11 @@ void autonomous() {
 	//Autonomous::selection=Autonomous::Select::left;
 	Wing::extendWings(false);
     Wing::extendElevation(false);
-
 	chassis.reset_pid_targets();				// Resets PID targets to 0.
 	chassis.reset_gyro();						// Resets gyro position to 0.
 	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);	// Set motors to hold. This helps autonomous consistency.
-
+	initialize();
 	/*if 
 	(Autonomous::selection==Autonomous::Select::left) 
 	{ Autonomous::left(); } 
@@ -431,12 +405,13 @@ void autonomous() {
 
 	*/
 	//skillsv2();
-	fiveballautonv2();
+	//fiveballautonv2();
 	//skills();
 	//AWP();
 	//oneballAuton();
 	//AWPtwo();
 	//fiveBallAuton();
+	awp_close();
 }
 
 
@@ -536,7 +511,8 @@ void opcontrol() {
 
 		// autonomous
 		if ( newPress(A) ) {
-			//1ballauton();
+			autonomous();
+
 		}
 
 

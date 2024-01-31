@@ -17,6 +17,9 @@ extern pros::Motor leftMid;
 extern pros::Motor rightFront;
 extern pros::Motor rightBack;
 extern pros::Motor rightMid;
+
+extern pros::MotorGroup leftDrive;
+extern pros::MotorGroup rightDrive;
 extern const int 
 LEFT_DRIVE_PORTS[3];
 extern const int 

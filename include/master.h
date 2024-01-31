@@ -55,8 +55,8 @@
 #include "EZ-Template/api.hpp"
 #include "autons/chassis.hpp"
 #include "autons/path_1_movement.hpp"
-
-
+#include "PID_1.hpp"
+#include "pid_func.hpp"
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
