@@ -24,7 +24,7 @@ static const int SLAPPER_PORTS[1] {12};
 
 // V5 SENSOR PORTS
 const int
-IMU_PORT {1};
+IMU_PORT {14};
 const int 
 VISION_PORT {0};
 const int 
