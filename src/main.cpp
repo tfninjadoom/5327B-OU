@@ -169,8 +169,11 @@ void awp_far(){
 
 }
 void awp_close(){
+	//open wings
 	turn(100, 85, false);
 	moveBackward(40, 120);
+
+	//close wings
 	
 }
 
