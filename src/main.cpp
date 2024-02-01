@@ -169,13 +169,9 @@ void awp_far(){
 
 }
 void awp_close(){
-	Wing::extendWings(true);
-	moveBackward(25, 127);
-	Wing::extendWings(false);
-	moveForward(20, 100);
-	turn(100, 60, false);
-	Wing::extendElevation(true);
-	moveForward(40, 100);
+	turn(100, 85, true);
+	moveBackward(100, 40);
+	
 }
 
 void unused_fiveBallAuton(){

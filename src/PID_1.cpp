@@ -1,4 +1,4 @@
-#include "master.h"
+/*#include "master.h"
 
 PID2::PID2(double kP, double kI, double kD) : kP(kP), kI(kI), kD(kD), integral(0.0), previousError(0.0) {}
 
@@ -21,3 +21,4 @@ double PID2::compute(double currentValue) {
     previousError = error;
     return kP * error + kI * integral + kD * derivative;
 }
+*/

@@ -14,26 +14,26 @@
 
 // MOTOR PORTS
 const int 
-LEFT_DRIVE_PORTS[3] {11, 12, 13};
+LEFT_DRIVE_PORTS[3] {5, 4, 3};
 const int 
-RIGHT_DRIVE_PORTS[3] {14, 15, 17};
-
-static const int
-INTAKE_PORTS[2] {20, 0};
-
-// V5 SENSOR PORTS
+RIGHT_DRIVE_PORTS[3] {1, 11, 2};
 
 const int
+INTAKE_PORTS[2] {20, 0};
+static const int SLAPPER_PORTS[1] {12};
+
+// V5 SENSOR PORTS
+const int
 IMU_PORT {1};
-static const int 
+const int 
 VISION_PORT {0};
-static const int 
+const int 
 DISTANCE_PORT {0};
-static const int 
+const int 
 OPTICAL_PORT {0};
-static const int 
+const int 
 ROTATION_PORTS[3] {17, 18, 19};
-static const int 
+const int 
 GPS_PORT {0};
 
 //----------------------------------------------------------------------------
@@ -44,12 +44,14 @@ pros::Motor         leftFront(LEFT_DRIVE_PORTS[0], DRIVE_GEARSET);
 pros::Motor         leftBack(LEFT_DRIVE_PORTS[1], DRIVE_GEARSET);
 pros::Motor         leftMid(LEFT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
+
 pros::Motor         rightFront(RIGHT_DRIVE_PORTS[0], DRIVE_GEARSET);
 pros::Motor         rightBack(RIGHT_DRIVE_PORTS[1], DRIVE_GEARSET);
 pros::Motor         rightMid(RIGHT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
 pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
 pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
+pros::Motor         Slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);
 
 //Motor Groups
 pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
@@ -76,11 +78,30 @@ pros::GPS           gps(GPS_PORT);
 // pros::ADIDigitalOut single-acting
 pros::ADIDigitalOut elevationWing('A');
 pros::ADIDigitalOut plowWings('B');
+pros::ADIDigitalOut leftWing('H');
+pros::ADIDigitalOut RightWing('D');
 // pros::ADIDigitalOut double-acting x6
 
 
 //----------------------------------------------------------------------------
 // OBJECT GROUPS
+
+namespace slapper{
+
+    bool on = false;
+
+    void turnon(bool start){
+        if (start){
+            Slapper.move_velocity(127);
+            on == true;
+        }
+        else{
+            Slapper.move_velocity(0);
+            on == false;
+        }
+
+    }
+}
 
 namespace Wing {
     bool wingsExtended { false };
@@ -90,9 +111,16 @@ namespace Wing {
         plowWings.set_value(extendOrNot);
         wingsExtended = extendOrNot;
     }
+
+    void left(bool open){
+        leftWing.set_value(open);
+    }
+
+    void right(bool open){
+        RightWing.set_value(open);
+    }
     void extendElevation(bool extendOrNot) {
         elevationWing.set_value(extendOrNot);
         elevated = extendOrNot;
     }
 }  // namespace Wing
-
