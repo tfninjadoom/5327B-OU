@@ -14,17 +14,19 @@
 
 // MOTOR PORTS
 const int 
-LEFT_DRIVE_PORTS[3] {11, 12, 13};
+LEFT_DRIVE_PORTS[3] {5, 4, 3};
 const int 
-RIGHT_DRIVE_PORTS[3] {14, 15, 17};
+RIGHT_DRIVE_PORTS[3] {1, 11, 2};
 
 static const int
 INTAKE_PORTS[2] {20, 0};
 
+static const int SLAPPER_PORTS[1] {12};
+
 // V5 SENSOR PORTS
 
 const int
-IMU_PORT {1};
+IMU_PORT {14};
 static const int 
 VISION_PORT {0};
 static const int 
@@ -50,10 +52,11 @@ pros::Motor         rightMid(RIGHT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
 pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
 pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
-
+pros::Motor         slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);   
 //Motor Groups
 pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
 pros::MotorGroup    rightDrive ( {rightFront, rightBack, rightMid} );
+
 
 // V5 Sensors
 pros::IMU           imu(IMU_PORT);
@@ -75,7 +78,9 @@ pros::GPS           gps(GPS_PORT);
 // Pneumatics
 // pros::ADIDigitalOut single-acting
 pros::ADIDigitalOut elevationWing('A');
-pros::ADIDigitalOut plowWings('B');
+//pros::ADIDigitalOut plowWings('B');
+pros::ADIDigitalOut rightWing('D');
+pros::ADIDigitalOut leftWing('H');
 // pros::ADIDigitalOut double-acting x6
 
 
@@ -85,10 +90,22 @@ pros::ADIDigitalOut plowWings('B');
 namespace Wing {
     bool wingsExtended { false };
     bool elevated { false };
-
+    bool left_extend = false;
+    bool right_extend = false;
+    
     void extendWings(bool extendOrNot) {
-        plowWings.set_value(extendOrNot);
-        wingsExtended = extendOrNot;
+        leftWing.set_value(extendOrNot);
+        rightWing.set_value(extendOrNot);
+        left_extend = extendOrNot;
+        right_extend = extendOrNot;
+    }
+    void extendleftWing(bool extendOrNot) {
+        leftWing.set_value(extendOrNot);
+        left_extend = extendOrNot;
+    }
+    void extendRightWing(bool extendOrNot) {
+        rightWing.set_value(extendOrNot);
+        right_extend = extendOrNot;
     }
     void extendElevation(bool extendOrNot) {
         elevationWing.set_value(extendOrNot);

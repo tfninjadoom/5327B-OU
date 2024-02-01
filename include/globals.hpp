@@ -63,4 +63,6 @@ namespace Wing {
 
     void extendWings(bool extendOrNot);
     void extendElevation(bool extendOrNot);
+    void extendleftWing(bool extendOrNot);
+    void extendleftWing(bool extendOrNot);
 } //namespace Wing
