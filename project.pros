@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Proto Driver Control",
+    "project_name": "Slapper Driver Control",
     "target": "v5",
     "templates": {
       "kernel": {
