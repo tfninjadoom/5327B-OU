@@ -169,8 +169,8 @@ void awp_far(){
 
 }
 void awp_close(){
-	turn(100, 85, true);
-	moveBackward(100, 40);
+	turn(100, 85, false);
+	moveBackward(40, 120);
 	
 }
 
