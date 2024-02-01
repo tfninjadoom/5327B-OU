@@ -145,6 +145,8 @@ void opcontrol() {
 				intakeMode = 0;
 			}
 		}
+
+		
 		// Outtake
 		if ( newPress(R1) ) {
 			if (intakeMode != -1) {
@@ -157,7 +159,50 @@ void opcontrol() {
 				intakeMode = 0;
 			}
 		}
+		bool rightopen = false;
+		bool leftopen = false;
+		if (newPress(L1)){
+			if (!leftopen){
+				Wing::left(true);
+				leftopen = true;
 
+			}
+		else{
+			Wing::left(false);
+			leftopen = false;
+		}
+			
+		}
+
+		if (newPress(R1)){
+			if(!rightopen){
+				Wing::right(true);
+				rightopen = true;
+			}
+			else{
+				Wing::right(false);
+				rightopen =  false;
+			}
+	
+			
+		}
+
+		 if(newPress(X)){
+			if (rightopen && leftopen){
+			Wing::right(false);
+			Wing::left(false);
+			rightopen = true;
+			leftopen = false;
+			}
+			else{
+				Wing::left(true);
+				Wing::right(true);
+				leftopen = true;
+				rightopen = true;
+
+			}
+		 }
+		 
 
         // Wings (Plow)
         if ( newPress(L2) ) {
@@ -190,8 +235,16 @@ void opcontrol() {
 		if ( newPress(A) ) {
 			autonomous();
 		}
-
-
+		bool ON = false;
+		if ( newPress(Y)) {
+			if (ON){
+			slapper::turnon(true);
+			ON = false;
+			}
+			else{
+				slapper::turnon(false);
+			}
+		}
         // slow drive
         if ( newPress(B) ) {
             if ( stickCurveMode == StickCurve::latest ) {
@@ -209,3 +262,5 @@ void opcontrol() {
         pros::delay(20);
     }
 }
+
+

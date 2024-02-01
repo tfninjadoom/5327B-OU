@@ -49,11 +49,11 @@ namespace Drive {
 		
 		leftFront.move(-leftInput);
 		leftBack.move(-leftInput);
-		leftMid.move(-leftInput);
+		leftMid.move(leftInput);
 
 		rightFront.move(rightInput);
 		rightBack.move(rightInput);
-		rightMid.move(rightInput);
+		rightMid.move(-rightInput);
 
 	}
 

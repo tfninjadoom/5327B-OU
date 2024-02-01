@@ -54,7 +54,16 @@ extern pros::GPS gps;
 namespace Wing {
     extern bool wingsExtended;
     extern bool elevated;
-
+    void right(bool open);
+    void left(bool open);
     void extendWings(bool extendOrNot);
     void extendElevation(bool extendOrNot);
 } //namespace Wing
+
+namespace slapper{
+
+    extern bool on;
+
+    void turnon(bool start);
+       
+}
