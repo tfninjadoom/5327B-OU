@@ -235,7 +235,7 @@ void opcontrol() {
 		if ( newPress(A) ) {
 			autonomous();
 		}
-		bool ON = false;
+		bool ON = true;
 		if ( newPress(Y)) {
 			if (ON){
 			slapper::turnon(true);
