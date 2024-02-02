@@ -10,6 +10,9 @@
 
 
 // Motors
+extern const int LEFT_DRIVE_PORTS[3];
+extern const int RIGHT_DRIVE_PORTS[3];
+extern const int IMU_PORT;
 
 extern pros::Motor leftFront;
 extern pros::Motor leftBack;
@@ -17,15 +20,6 @@ extern pros::Motor leftMid;
 extern pros::Motor rightFront;
 extern pros::Motor rightBack;
 extern pros::Motor rightMid;
-
-extern pros::MotorGroup leftDrive;
-extern pros::MotorGroup rightDrive;
-extern const int 
-LEFT_DRIVE_PORTS[3];
-extern const int 
-RIGHT_DRIVE_PORTS[3];
-extern const int IMU_PORT;
-
 
 
 extern pros::Motor intake;
@@ -60,9 +54,16 @@ extern pros::GPS gps;
 namespace Wing {
     extern bool wingsExtended;
     extern bool elevated;
-
+    void right(bool open);
+    void left(bool open);
     void extendWings(bool extendOrNot);
     void extendElevation(bool extendOrNot);
-    void extendleftWing(bool extendOrNot);
-    void extendleftWing(bool extendOrNot);
 } //namespace Wing
+
+namespace slapper{
+
+    extern bool on;
+
+    void turnon(bool start);
+       
+}

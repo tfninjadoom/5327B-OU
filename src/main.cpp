@@ -106,7 +106,16 @@ void swing(int speed, int degrees, bool left, bool wait=true) {
 
   if (wait) { chassis.wait_drive(); };
 }
-
+void rightwing(bool open){
+	Wing::right(open);
+}
+void leftwing(bool open){
+	Wing::left(open);
+}
+void bothwings(bool open){
+	Wing::right(open);
+	Wing::left(open);
+}
 void fiveBallAuton(){
 	// grab triball under elevation bar
 	intakeOn(100);
@@ -171,13 +180,12 @@ void awp_far(){
 
 }
 void awp_close(){
-	Wing::rightWing(true);
+	leftwing(true);
 	moveBackward(25, 127);
-	Wing::extendWings(false);
-	moveForward(20, 100);
-	turn(100, 60, false);
-	Wing::extendElevation(true);
-	moveForward(40, 100);
+	leftwing(false);
+	turn(100, 85, false);
+	rightwing(true);
+	moveBackward(42, 120);
 }
 
 void unused_fiveBallAuton(){
@@ -437,6 +445,7 @@ void opcontrol() {
     Wing::extendWings(false);
     Wing::extendElevation(false);
 
+
 	//--------Chassis Reconfiguration---------//
 	//chassis.set_active_brake(0);
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);
@@ -483,7 +492,60 @@ void opcontrol() {
 				intakeMode = 0;
 			}
 		}
+		bool leftopen = false;
+		bool rightopen = false;
+		if (newPress(L1)){
+			if (!leftopen){
+				Wing::left(true);
+				leftopen = true;
 
+			}
+		else{
+			Wing::left(false);
+			leftopen = false;
+		}
+			
+		}
+
+		if (newPress(R1)){
+			if(!rightopen){
+				Wing::right(true);
+				rightopen = true;
+			}
+			else{
+				Wing::right(false);
+				rightopen =  false;
+			}
+	
+			
+		}
+
+		 if(newPress(X)){
+			if (rightopen && leftopen){
+			Wing::right(false);
+			Wing::left(false);
+			rightopen = true;
+			leftopen = false;
+			}
+			else{
+				Wing::left(true);
+				Wing::right(true);
+				leftopen = true;
+				rightopen = true;
+
+			}
+		 }
+		bool ON = false;
+		if ( newPress(Y)) {
+			if (!ON){
+			slapper::turnon(true);
+			ON = true;
+			}
+			else{
+				slapper::turnon(false);
+				ON = false;
+			}
+		}
 
         // Wings (Plow)
         if ( newPress(L2) ) {

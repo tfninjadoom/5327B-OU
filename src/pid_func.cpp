@@ -1,4 +1,4 @@
-#include "master.h"
+/*#include "master.h"
 const double DISTANCE_THRESHOLD = 1.0;
 double getEncoderDistance() {
     double leftDistance = (leftFront.get_position() + leftBack.get_position() + leftMid.get_position()) / 3.0;
@@ -26,3 +26,4 @@ bool isMovementComplete(double targetDistance) {
     return fabs(targetDistance - currentDistance) < DISTANCE_THRESHOLD;
 }
 
+*/
