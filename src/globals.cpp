@@ -93,11 +93,11 @@ namespace slapper{
     void turnon(bool start){
         if (start){
             Slapper.move_velocity(127);
-            on == true;
+            //on == true;
         }
         else{
             Slapper.move_velocity(0);
-            on == false;
+            //on == false;
         }
 
     }

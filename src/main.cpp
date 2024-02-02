@@ -83,6 +83,10 @@ void extend(bool elevation){
 	Wing::extendElevation(true);
 }
 
+void slapperon(bool on){
+	slapper::turnon(on);
+}
+
 void turn(int speed, int degrees, bool left, bool wait=true) {
   
   if(left){
@@ -117,66 +121,10 @@ void bothwings(bool open){
 	Wing::left(open);
 }
 void fiveBallAuton(){
-	// grab triball under elevation bar
-	intakeOn(100);
-	moveForward(5, 100, false, 200);
-	//pros::delay(100);
-	intakeOff();
-
-	// move to goal
-	moveBackward(45, 100);
-	turn(100, 180, true);
-	swing(100, 135, true);
-	Wing::extendWings(true);
-	moveForward(18, 127);
-	swing(100, 90, true);
 	
-	// push
-	outtakeOn(127);
-	moveForward(25, 127, false);
-	//pros::delay(500);
-	moveBackward(15, 100, false);
-	//pros::delay(500);
-	moveForward(20, 127, false);
-	//pros::delay(500);
-	intakeOff();
-	pros::delay(100);
-
-	// turn toward middle ball 1
-	moveBackward(15, 100);
-	Wing::extendWings(false);
-	chassis.set_angle(90);
-	turn(100, 19, true);
-	
-	// move toward middle ball 1
-	moveForward(75, 100);
-	//pros::delay(100);
-	intakeOn(100);
-	moveForward(5, 100, false );
-	//pros::delay(500);
-	intakeOff();
-	
-	// clockwise swing scoop to score 3 triballs
-	moveBackward(10, 100);
-	Wing::extendWings(true);
-	swing(100, 180, false);
-	outtakeOn(100);
-	moveForward(100, 127, false);
-	//pros::delay(500);
-	moveBackward(100, 10);
 }
 void awp_far(){
-	moveBackward(35, 100);
-	turn(100, 80, true);
-	Wing::extendWings(true);
-	moveBackward(20, 127);
-	Wing::extendWings(false);
-	moveForward(20, 100);
-	turn(100, 80, false);
-	moveForward(40, 100);
-	Wing::extendWings(true);
 	
-	turn(100, 40, true);
 
 }
 void awp_close(){
@@ -189,129 +137,23 @@ void awp_close(){
 }
 
 void unused_fiveBallAuton(){
-  intakeOn(127);
-  moveForward(7,100);
-  //pros::delay(200);
-  intakeOff();
-  moveBackward(35, 100);
-  turn(100, 180, true);
-  //Wing::extendWings(true);
-  moveForward(30, 100);
-  turn(100, 155, true);
-  outtakeOn(INTAKE_SPEED);
-  moveForward(20, 100);
-  turn(100, 10, true);
-  moveForward(40, 120);
-  moveBackward(20, 100);
-  turn(100, 60, false);
-
-  //Wing::extendWings(false);
-  moveForward(40, 75);
-  turn(100, 60, true);
-  intakeOn(100);
-  moveForward(30, 100);
-  intakeOff();
   
-  moveBackward(10, 75);
-  /*turn(75, 75, false);
-  //Wing::extendWings(true);
-  moveForward(24, 75);
-  turn(75, 90, true);
-  outtakeOn(INTAKE_SPEED);
-  moveForward(35, 125);
-  pros::delay(300);
-  moveBackward(15, 75);
-  turn(75, 180, false);
-  intakeOn(INTAKE_SPEED);
-  moveForward(40, 75);
-  pros::delay(200);
-  intakeOff();
-  moveBackward(10, 75);
-  turn(75, 180, false);
-  moveForward(40, 125);
-  pros::delay(200);
-  moveBackward(10, 75);
-  */
-}
-
-void fiveballautonv2(){
-
-	
-
-	intakeOn(100);
-	moveForward(5, 100, false, 200);
-	//pros::delay(100);
-	intakeOff();
-
-	// move to goal
-	moveBackward(55, 100);
-	turn(100, 180, true);
-	swing(100, 135, true);
-	Wing::extendWings(true);
-	moveForward(18, 127);
-	swing(100, 90, true);
-	
-	// push
-	outtakeOn(127);
-	moveForward(25, 127, false);
-	//pros::delay(500);
-	//moveBackward(15, 100, false);
-	//pros::delay(500);
-	//turn(100, 180, true);
-
-	moveBackward(20, 127, false);
-	moveForward(20, 100);
-	//turn(100, 180, true);
-	//pros::delay(500);
-	intakeOff();
-	pros::delay(100);
-
-	// turn toward middle ball 1
-	moveBackward(15, 100);
-	Wing::extendWings(false);
-	chassis.set_angle(90);
-	turn(100, 19, true);
-	
-	// move toward middle ball 1
-	moveForward(75, 100);
-	//pros::delay(100);
-	intakeOn(100);
-	moveForward(5, 100, false );
-	//pros::delay(500);
-	intakeOff();
-	
-	// clockwise swing scoop to score 3 triballs
-	moveBackward(10, 100);
-	Wing::extendWings(true);
-	swing(100, 180, false);
-	outtakeOn(100);
-	moveForward(100, 127, false);
-	//pros::delay(500);
-	moveBackward(100, 10);
 }
 
 
 void skills(){
 
-	
+	slapperon(true);
+}
+void fiveballautonv2(){
+
 }
 
+
+
+
 void skillsv2(){
-	intakeOn(50);
-	pros::delay(14000);
-	outtakeOff();
-	turn(50, 20, false);
-	//Wing::extendWings(true);
-	moveForward(10, 50);
-	Wing::extendWings(false);
-	//swing(127, 45, true);
-	imu.reset();
-	turn(50, 20, true);
-	moveBackward(10, 50);
 	
-	intakeOn(50);
-	pros::delay(1000);
-	outtakeOff();
 	
 
 }
@@ -494,7 +336,7 @@ void opcontrol() {
 		}
 		bool leftopen = false;
 		bool rightopen = false;
-		if (newPress(L1)){
+		if (newPress(L2)){
 			if (!leftopen){
 				Wing::left(true);
 				leftopen = true;
@@ -507,7 +349,7 @@ void opcontrol() {
 			
 		}
 
-		if (newPress(R1)){
+		if (newPress(R2)){
 			if(!rightopen){
 				Wing::right(true);
 				rightopen = true;
