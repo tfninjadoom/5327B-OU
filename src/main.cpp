@@ -288,6 +288,8 @@ void opcontrol() {
     Wing::extendElevation(false);
 
 
+	bool intake_on = false;
+
 	//--------Chassis Reconfiguration---------//
 	//chassis.set_active_brake(0);
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);
@@ -311,15 +313,19 @@ void opcontrol() {
 
 
         // Intake
+
+		
         if ( newPress(L1) ) {
 			if (intakeMode != 1) {
 				intake.move(110);
                 intake2.move(-110);
 				intakeMode = 1;
+				intake_on = true;
 			} else {
 				intake.move(0);
                 intake2.move(0);
 				intakeMode = 0;
+				intake_on = false;
 			}
 		}
 		// Outtake
@@ -328,10 +334,19 @@ void opcontrol() {
 				intake.move(-110);
                 intake2.move(110);
 				intakeMode = -1;
+
 			} else {
 				intake.move(0);
                 intake2.move(0);
 				intakeMode = 0;
+			}
+		}
+
+		if (intake_on){
+			if (detect()){
+				intake.move(0);
+				intake2.move(0);
+				intake_on = false;
 			}
 		}
 		bool leftopen = false;
