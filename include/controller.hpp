@@ -22,6 +22,7 @@ namespace Controller {
 
     // returns true if button pressed
     bool newPress(const pros::controller_digital_e_t& button);
+    bool newPressShift(const pros::controller_digital_e_t& button, const pros::controller_digital_e_t& shift);
 
     // button shortcuts
     const pros::controller_digital_e_t L1   {pros::E_CONTROLLER_DIGITAL_L1};

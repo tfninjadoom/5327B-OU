@@ -24,6 +24,8 @@ extern pros::Motor rightMid;
 
 extern pros::Motor intake;
 extern pros::Motor intake2;
+extern pros::Motor slapper;
+extern pros::Motor slapper2;
 
 // Motor Groups
 
@@ -52,18 +54,23 @@ extern pros::GPS gps;
 // extern pros::ADIDigitalOut double-acting
 
 namespace Wing {
-    extern bool wingsExtended;
+
+    extern bool leftExtended;
+    extern bool rightExtended;
     extern bool elevated;
-    void right(bool open);
-    void left(bool open);
-    void extendWings(bool extendOrNot);
+
+    void both(bool extendOrNot);
+    void left(bool extendOrNot);
+    void right(bool extendOrNot);
     void extendElevation(bool extendOrNot);
-} //namespace Wing
 
-namespace slapper{
+}//namespace Wing
 
-    extern bool on;
+namespace Slapper {
 
-    void turnon(bool start);
-       
-}
+    extern bool running;
+    extern int slapperMode;
+
+    void run(bool runOrNot);
+
+}//namespace Slapper

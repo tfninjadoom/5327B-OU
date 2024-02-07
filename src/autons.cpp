@@ -15,11 +15,11 @@ namespace Autonomous {
 
     //------AUTONOMOUS FUNCTIONS-------//
 
-    void left() {
-        autonomousPath();
+    void close() {
+        return;
     }
 
-    void right() {
+    void far() {
         return;
     }
 

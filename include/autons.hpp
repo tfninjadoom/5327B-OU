@@ -11,13 +11,13 @@
 
 namespace Autonomous {
 
-    extern void left();
-    extern void right();
+    extern void close();
+    extern void far();
     extern void skills();
 
     enum class Select {
-	    left,
-	    right,
+	    close,
+	    far,
 	    skills1,
         skills2,
         skills3,

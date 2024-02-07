@@ -28,4 +28,11 @@ namespace Controller {
         }
     }
     
+    bool newPressShift(const pros::controller_digital_e_t& button, const pros::controller_digital_e_t& shift) {
+        if (controller.get_digital_new_press(button) && controller.get_digital(shift)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

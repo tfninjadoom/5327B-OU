@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "close sideAW",
+    "project_name": "Prog Skills 2",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,9 +309,9 @@
       }
     },
     "upload_options": {
-      "icon": "ufo",
-      "slot": 3,
-      "description": ""
+      "icon": "pizza",
+      "slot": 7,
+      "description": " "
     }
   }
 }

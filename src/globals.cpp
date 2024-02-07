@@ -20,7 +20,8 @@ RIGHT_DRIVE_PORTS[3] {1, 11, 2};
 
 const int
 INTAKE_PORTS[2] {20, 0};
-static const int SLAPPER_PORTS[1] {12};
+const int 
+SLAPPER_PORTS[1] {12};
 
 // V5 SENSOR PORTS
 const int
@@ -51,7 +52,7 @@ pros::Motor         rightMid(RIGHT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
 pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
 pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
-pros::Motor         Slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);
+pros::Motor         slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);
 
 //Motor Groups
 pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
@@ -75,50 +76,55 @@ pros::GPS           gps(GPS_PORT);
 
 
 // Pneumatics
-// pros::ADIDigitalOut single-acting
-pros::ADIDigitalOut elevationWing('A');
-pros::ADIDigitalOut plowWings('B');
+pros::ADIDigitalOut elevationWing('C');
 pros::ADIDigitalOut leftWing('H');
-pros::ADIDigitalOut RightWing('D');
-// pros::ADIDigitalOut double-acting x6
+pros::ADIDigitalOut rightWing('D');
+//pros::ADIDigitalOut plowWings('B');
+
 
 
 //----------------------------------------------------------------------------
 // OBJECT GROUPS
 
-namespace slapper{
+namespace Slapper{
 
-    bool on = false;
+    bool running { false };
+    int Mode { 1 };
 
-    void turnon(bool start){
-        if (start){
-            Slapper.move_velocity(127);
-            on == true;
+    void run(bool runOrNot){
+        if (runOrNot){
+            slapper.move(127);
+            running = true;
         }
-        else{
-            Slapper.move_velocity(0);
-            on == false;
+        else if (!runOrNot) {
+            slapper.move(0);
+            running = false;
         }
-
     }
 }
 
 namespace Wing {
-    bool wingsExtended { false };
+    bool leftExtended { false };
+    bool rightExtended { false };
     bool elevated { false };
 
-    void extendWings(bool extendOrNot) {
-        plowWings.set_value(extendOrNot);
-        wingsExtended = extendOrNot;
+    void both(bool extendOrNot) {
+        leftWing.set_value(extendOrNot);
+        rightWing.set_value(extendOrNot);
+        leftExtended = extendOrNot;
+        rightExtended = extendOrNot;
     }
 
-    void left(bool open){
-        leftWing.set_value(open);
+    void left(bool extendOrNot) {
+        leftWing.set_value(extendOrNot);
+        leftExtended = extendOrNot;
     }
 
-    void right(bool open){
-        RightWing.set_value(open);
+    void right(bool extendOrNot) {
+        rightWing.set_value(extendOrNot);
+        rightExtended = extendOrNot;
     }
+
     void extendElevation(bool extendOrNot) {
         elevationWing.set_value(extendOrNot);
         elevated = extendOrNot;
