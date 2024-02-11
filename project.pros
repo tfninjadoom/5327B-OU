@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Prog Skills 2",
+    "project_name": "Far AWP & DC",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -309,8 +309,8 @@
       }
     },
     "upload_options": {
-      "icon": "pizza",
-      "slot": 7,
+      "icon": "pros",
+      "slot": 2,
       "description": " "
     }
   }

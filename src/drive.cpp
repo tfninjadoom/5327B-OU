@@ -36,13 +36,13 @@ namespace Drive1 {
 
 	void motorInputs(int leftInput, int rightInput ) {
 		
-		leftFront.move(-leftInput);
-		leftBack.move(-leftInput);
+		leftFront.move(leftInput);
+		leftBack.move(leftInput);
 		leftMid.move(leftInput);
 
 		rightFront.move(rightInput);
 		rightBack.move(rightInput);
-		rightMid.move(-rightInput);
+		rightMid.move(rightInput);
 
 	}
 

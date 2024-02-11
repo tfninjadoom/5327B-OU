@@ -102,6 +102,9 @@ void swing(int speed, int degrees, bool left, bool wait=true) {
   if (wait) { chassis.wait_drive(); };
 }
 
+
+// ---------------------- OLD AUTONS -------------------//
+
 void fiveBallAuton(){
 	// grab triball under elevation bar
 	intakeOn(100);
@@ -188,31 +191,9 @@ void unused_fiveBallAuton(){
   intakeOff();
   
   moveBackward(10, 75);
-  /*turn(75, 75, false);
-  //Wing::both(true);
-  moveForward(24, 75);
-  turn(75, 90, true);
-  outtakeOn(INTAKE_SPEED);
-  moveForward(35, 125);
-  pros::delay(300);
-  moveBackward(15, 75);
-  turn(75, 180, false);
-  intakeOn(INTAKE_SPEED);
-  moveForward(40, 75);
-  pros::delay(200);
-  intakeOff();
-  moveBackward(10, 75);
-  turn(75, 180, false);
-  moveForward(40, 125);
-  pros::delay(200);
-  moveBackward(10, 75);
-  */
 }
 
 void fiveballautonv2(){
-
-	
-
 	intakeOn(100);
 	moveForward(5, 100, false, 200);
 	//pros::delay(100);
@@ -266,28 +247,18 @@ void fiveballautonv2(){
 }
 
 
-void skills(){
+// ----------------------- AUTONS -------------------------//
+
+void slapper_only_skills(){
 	Slapper::run(true);
 }
 
-void skillsv2(){
-	Slapper::run(true);
-	pros::delay(30000);
-	Slapper::run(false);
-	Wing::both(true);
-	moveBackward(20, 100, false, 600);
-	turn(100, 60, false, false, 300);
-	moveBackward(70, 120);
-	Wing::both(false);
-	moveForward(20, 70, false, 200);
-	Wing::both(true);
-	swing(100, -60, true);
-		
-
+void prog_skills(){
+	// Use LemLib branch
 }
 
 
-void close_awp(){
+void close_awp() {
 	// Descore match load zone
 	//moveForward(2, 50, true);
 	Wing::left(true);
@@ -306,7 +277,7 @@ void close_awp(){
 	turn(30, -80, true);
 }
 
-void elim_close_auton(){
+void close_disrupt() {
 
 	moveBackward(43, 120, false, 1000);
 	
@@ -318,31 +289,9 @@ void elim_close_auton(){
 	moveBackward(20, 100);
 	outtakeOff();
 	turn(100, 360, true);
-	
-	
-	
-
-
-	
 }
 
 void far_push() {
-	// Bring preload to goal
-	turn(100, 45, true, true);
-	moveForward(33, 80, true, 500);
-	turn(100, 0, false, true);
-	// Score preload
-	outtakeOn(127);
-	moveForward(12, 110, false, 500);
-	moveBackward(15, 110, false, 500);
-	turn(100, 180, false);
-	Wing::right(true);
-	moveBackward(15, 80, true);
-	moveForward(15, 100, true);
-	Wing::right(false);
-}
-
-void far_awp() {
 	// Bring preload to goal
 	turn(100, 45, true, true);
 	moveForward(31, 80, true, 500);
@@ -354,9 +303,14 @@ void far_awp() {
 	turn(100, 180, false);
 	//Wing::right(true);
 	moveBackward(23, 120, true);
-	moveForward(7, 90, true);
+	moveForward(8, 90, true);
 	outtakeOff();
 	Wing::right(false);
+}
+
+void far_awp() {
+	// Push preload into goal
+	far_push();
 	// Turn and touch pole
 	turn(100, -90, true);
 	moveForward(48, 110, true);
@@ -405,6 +359,11 @@ void initialize() {
 	default_constants();			// 
 	exit_condition_defaults();		// 
 
+	//moved here from autonomous()
+	chassis.reset_pid_targets();				// Resets PID targets to 0.
+	chassis.reset_gyro();						// Resets gyro position to 0.
+	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
+
 	chassis.initialize(); 
 }
 
@@ -451,9 +410,6 @@ void autonomous() {
 	
 	//Reinitialization
 	//imu.reset();
-	chassis.reset_pid_targets();				// Resets PID targets to 0.
-	chassis.reset_gyro();						// Resets gyro position to 0.
-	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
 	chassis.set_drive_brake(MOTOR_BRAKE_COAST);	// Set motors to hold. This helps autonomous consistency.
 	//initialize();
 	
@@ -467,21 +423,12 @@ void autonomous() {
 	{ Autonomous::skills(); }
 	*/
 
-// New Robot
+// Robot 2
 	//close_awp();
-	//far_awp();
-	//skills();
-	elim_close_auton();
-
-// Old Robot	
-	//skillsv2();
-	//fiveballautonv2();
-	//skills();
-	//AWP();
-	//oneballAuton();
-	//AWPtwo();
-	//fiveBallAuton();
-	//waste();
+	far_awp();
+	
+	//close_disrupt();
+	//slapper_only_skills();
 }
 
 
@@ -498,7 +445,8 @@ void opcontrol() {
 
 	DriveMode driveMode { DriveMode::arcade };
 
-	StickCurve stickCurve { StickCurve::strong };
+	StickCurve stickCurve { StickCurve::weak };
+	StickCurve defaultStickCurve { stickCurve };
 
     int intakeMode { 0 };
 
@@ -625,8 +573,14 @@ void opcontrol() {
                 stickCurve = StickCurve::slow;
                 pros::lcd::set_text(1, "StickCurve::slow");
             } else if ( stickCurve == StickCurve::slow ) {
-                stickCurve = StickCurve::strong;
-                pros::lcd::set_text(1, "StickCurve::strong");
+                // change stick curve back to default
+				if ( defaultStickCurve == StickCurve::weak) {
+					stickCurve = StickCurve::weak;
+                	pros::lcd::set_text(1, "StickCurve::weak");
+				} else if ( defaultStickCurve == StickCurve::strong) {
+					stickCurve = StickCurve::strong;
+                	pros::lcd::set_text(1, "StickCurve::strong");
+				}
             }
         }
 
