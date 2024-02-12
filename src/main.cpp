@@ -356,14 +356,14 @@ void initialize() {
 
 	//--------Chassis Configuration---------//
 	//chassis.set_active_brake(0.1); 	// Sets active brake kP, recommended value 0.1.
-	default_constants();			// 
-	exit_condition_defaults();		// 
+			// 
 
 	//moved here from autonomous()
 	chassis.reset_pid_targets();				// Resets PID targets to 0.
 	chassis.reset_gyro();						// Resets gyro position to 0.
 	chassis.reset_drive_sensor();				// Resets drive sensors to 0.
-
+	default_constants();			// 
+	exit_condition_defaults();
 	chassis.initialize(); 
 }
 
