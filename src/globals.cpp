@@ -51,7 +51,7 @@ pros::Motor         rightMid(RIGHT_DRIVE_PORTS[2], DRIVE_GEARSET);
 
 pros::Motor         intake(INTAKE_PORTS[0], pros::E_MOTOR_GEARSET_18);
 pros::Motor         intake2(INTAKE_PORTS[1], pros::E_MOTOR_GEARSET_18);
-pros::Motor         slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);
+pros::Motor         Slapper(SLAPPER_PORTS[0], pros::E_MOTOR_GEARSET_36);
 
 //Motor Groups
 pros::MotorGroup    leftDrive  ( {leftFront, leftBack, leftMid} );
@@ -86,17 +86,17 @@ pros::ADIDigitalOut RightWing('D');
 //----------------------------------------------------------------------------
 // OBJECT GROUPS
 
-namespace Slapper{
+namespace slapper{
 
     bool on = false;
 
     void turnon(bool start){
         if (start){
-            slapper.move_velocity(127);
+            Slapper.move_velocity(127);
             on == true;
         }
         else{
-            slapper.move_velocity(0);
+            Slapper.move_velocity(0);
             on == false;
         }
 
@@ -124,25 +124,3 @@ namespace Wing {
         elevated = extendOrNot;
     }
 }  // namespace Wing
-
-
-//--------------------------LEMLIB SETUP-------------------------//
-
-// tracking wheels
-pros::Rotation horizontalEnc{7};
-// horizontal tracking wheel. 2.75" diameter, 3.7" offset, back of the robot
-lemlib::TrackingWheel horizontal{&horizontalEnc, lemlib::Omniwheel::NEW_275, -3.7};
-
-// drivetrain
-lemlib::Drivetrain_t drivetrain {&leftDrive, &rightDrive, 15, lemlib::Omniwheel::NEW_275, 600, 40};
-
-// lateral motion controller
-lemlib::ChassisController_t lateralController {70, 210, 1, 100, 3, 500, 20};
-
-// angular motion controller
-lemlib::ChassisController_t angularController {2, 20, 1, 100, 3, 500, 20};
-
-// sensors for odometry
-lemlib::OdomSensors_t sensors {nullptr, nullptr, nullptr, nullptr, &imu};
-
-lemlib::Chassis chassis {drivetrain, lateralController, angularController, sensors};

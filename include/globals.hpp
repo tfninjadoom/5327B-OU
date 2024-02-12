@@ -60,29 +60,10 @@ namespace Wing {
     void extendElevation(bool extendOrNot);
 } //namespace Wing
 
-namespace Slapper{
+namespace slapper{
 
     extern bool on;
 
     void turnon(bool start);
        
 }
-
-// LemLib Setup
-extern pros::Rotation horizontalEnc;
-// horizontal tracking wheel. 2.75" diameter, 3.7" offset, back of the robot
-extern lemlib::TrackingWheel horizontal;
-
-// drivetrain
-extern lemlib::Drivetrain_t drivetrain;
-
-// lateral motion controller
-extern lemlib::ChassisController_t lateralController;
-
-// angular motion controller
-extern lemlib::ChassisController_t angularController;
-
-// sensors for odometry
-extern lemlib::OdomSensors_t sensors;
-
-extern lemlib::Chassis chassis;
