@@ -34,7 +34,7 @@ namespace Autonomous {
             Wing::right(false);
         });
         Slapper::turnon(true);
-        pros::delay(26000);
+        pros::delay(26000); 
         Slapper::turnon(false);
         //go back
         chassis.moveTo(-61, -37, 180, 800, false, false, 40, 0.5);

@@ -9,7 +9,7 @@
  *
  */
 #include <math.h>
-#include "main.h"
+#include "master.h"
 #include "pros/motors.hpp"
 #include "pros/misc.hpp"
 #include "lemlib/util.hpp"

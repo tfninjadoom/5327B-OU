@@ -250,11 +250,11 @@ void opcontrol() {
 		bool ON = true;
 		if ( newPress(Y)) {
 			if (ON){
-			slapper::turnon(true);
+			Slapper::turnon(true);
 			ON = false;
 			}
 			else{
-				slapper::turnon(false);
+				Slapper::turnon(false);
 			}
 		}
         // slow drive
