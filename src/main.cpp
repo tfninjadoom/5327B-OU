@@ -39,6 +39,25 @@ void initialize() {
 	//--------Piston Starting States---------//
 	Wing::extendWings(false);
     Wing::extendElevation(false);
+
+
+	//----------------LemLib----------------//
+	lemlib::Logger::initialize();
+
+    // calibrate sensors
+    chassis.calibrate();
+    chassis.setPose(lemlib::Pose(0, 0, 0));
+
+    // print odom values to the brain
+    pros::Task screenTask([=]() {
+        while (true) {
+            pros::lcd::print(0, "X: %f", chassis.getPose().x);
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y);
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta);
+            lemlib::Logger::logOdom(chassis.getPose());
+            pros::delay(20);
+        }
+    });
 }
 
 /**
@@ -82,14 +101,7 @@ void autonomous() {
     Wing::extendWings(false);
     Wing::extendElevation(false);
 
-	if 
-	(Autonomous::selection==Autonomous::Select::left) 
-	{ Autonomous::left(); } 
-	else if 
-	(Autonomous::selection==Autonomous::Select::right) 
-	{ Autonomous::right(); } 
-	else 
-	{ Autonomous::skills(); }
+	Autonomous::skills();
 
 }
 
