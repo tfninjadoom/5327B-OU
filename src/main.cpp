@@ -271,7 +271,7 @@ void close_awp() {
 	Wing::right(true);
 	moveBackward(5, 70, false, 500);
 	Wing::right(false);
-	moveBackward(29, -80, true);
+	moveBackward(26, -80, true);
 	// Touch pole
 	Wing::right(true);
 	turn(30, -80, true);
@@ -424,8 +424,8 @@ void autonomous() {
 	*/
 
 // Robot 2
-	//close_awp();
-	far_awp();
+	close_awp();
+	//far_awp();
 	
 	//close_disrupt();
 	//slapper_only_skills();
