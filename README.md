@@ -1,7 +1,7 @@
 # 5327B-OU  
 
 ## Git commands
-The following tutorial on using git to interact with your codebase requires:  
+The following cheatsheet on using git to interact with your codebase requires:  
 - Git to be installed on your laptop  
 - A separate folder within your desktop to host any and all of your GitHub-linked projects  
 
